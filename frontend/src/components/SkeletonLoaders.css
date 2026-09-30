@@ -1,0 +1,288 @@
+.skeleton-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--grid-count, 4), 1fr);
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.skeleton-stat-card {
+  padding: 1.25rem;
+  background: var(--card-bg, white);
+  border-radius: 8px;
+  border: 1px solid var(--border-color, var(--rt-color-border));
+}
+
+.skeleton-chart {
+  padding: 1.5rem;
+  background: var(--card-bg, white);
+  border-radius: 8px;
+  border: 1px solid var(--border-color, var(--rt-color-border));
+}
+
+.skeleton-table {
+  width: 100%;
+  background: var(--card-bg, white);
+  border-radius: 8px;
+  border: 1px solid var(--border-color, var(--rt-color-border));
+  overflow: hidden;
+}
+
+.skeleton-table-header {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 1rem;
+  padding: 1rem;
+  border-bottom: 1px solid var(--border-color, var(--rt-color-border));
+  background: var(--rt-table-header-bg);
+}
+
+.skeleton-table-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 1rem;
+  padding: 1rem;
+  border-bottom: 1px solid var(--border-color, var(--rt-color-bg-muted));
+  align-items: center;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.skeleton-table-cell {
+  min-width: 0;
+}
+
+.skeleton-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.skeleton-list-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: var(--card-bg, white);
+  border-radius: 8px;
+  border: 1px solid var(--border-color, var(--rt-color-border));
+}
+
+.skeleton-list-item-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.skeleton-card-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--grid-columns, 3), 1fr);
+  gap: 1.5rem;
+}
+
+.skeleton-card-item {
+  padding: 1rem;
+  background: var(--card-bg, white);
+  border-radius: 8px;
+  border: 1px solid var(--border-color, var(--rt-color-border));
+}
+
+.skeleton-dimensions-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--dim-count, 2), 1fr);
+  gap: 1.5rem;
+}
+
+.skeleton-dimension-card {
+  padding: 1.5rem;
+  background: var(--card-bg, white);
+  border-radius: 8px;
+  border: 1px solid var(--border-color, var(--rt-color-border));
+}
+
+.skeleton-dimension-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.skeleton-dimension-chart {
+  margin-top: 1rem;
+}
+
+.skeleton-video-table {
+  width: 100%;
+  background: var(--card-bg, white);
+  border-radius: 8px;
+  border: 1px solid var(--border-color, var(--rt-color-border));
+  overflow: hidden;
+}
+
+.skeleton-dashboard,
+.skeleton-compare-page {
+  padding: 2rem;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.skeleton-dashboard-shell {
+  animation: fadeIn 0.25s ease-out;
+}
+
+.skeleton-dashboard-channel {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  max-width: 320px;
+  padding: 0.45rem 0.65rem;
+  border: 1px solid var(--border-color, var(--rt-color-border));
+  border-radius: 8px;
+  background: var(--card-bg, var(--rt-color-bg-elevated));
+  box-sizing: border-box;
+}
+
+.skeleton-dashboard-channel-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.skeleton-dashboard-tabs.skeleton-dashboard-tabs {
+  flex-wrap: nowrap;
+  overflow: hidden;
+}
+
+.skeleton-dashboard-tab-pill {
+  display: flex;
+  align-items: center;
+  padding: var(--rt-space-2) var(--rt-space-3);
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+}
+
+.skeleton-dashboard-tab-pill--active {
+  border-bottom-color: var(--rt-color-text);
+}
+
+.skeleton-dashboard-timeframe {
+  flex-shrink: 0;
+}
+
+.skeleton-dashboard-overview {
+  margin-bottom: 1.5rem;
+}
+
+.skeleton-dashboard-channel-widget {
+  margin-bottom: 2rem;
+}
+
+[data-theme='dark'] .skeleton-dashboard-tab-pill {
+  background: transparent;
+}
+
+[data-theme='dark'] .skeleton-dashboard-tab-pill--active {
+  border-bottom-color: var(--rt-color-text);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.skeleton-delta-pills {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.skeleton-delta-pill {
+  flex: 1;
+  min-width: 180px;
+  padding: 1rem;
+  background: var(--card-bg, white);
+  border-radius: 8px;
+  border: 1px solid var(--border-color, var(--rt-color-border));
+}
+
+/* Video / Playlist analytics: same row as real `seo-metric-pill` buttons */
+.seo-widget-pills.seo-widget-pills--skeleton .seo-metric-pill {
+  pointer-events: none;
+  cursor: default;
+}
+
+.seo-widget-pills.seo-widget-pills--skeleton .seo-metric-pill:hover {
+  background: transparent;
+}
+
+@keyframes seo-chart-shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Placeholder inside `seo-widget-chart` > `chart-wrapper` (Recharts is 400px tall) */
+.seo-chart-skeleton {
+  width: 100%;
+  box-sizing: border-box;
+  border-radius: 0;
+  background-color: var(--rt-color-bg-subtle);
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+  background-size:
+    100% calc(100% / 5),
+    calc(100% / 6) 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.seo-chart-skeleton::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.55),
+    transparent
+  );
+  animation: seo-chart-shimmer 1.8s ease-in-out infinite;
+}
+
+[data-theme="dark"] .seo-chart-skeleton {
+  background-color: var(--rt-color-bg-subtle);
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.07) 1px, transparent 1px);
+}
+
+[data-theme="dark"] .seo-chart-skeleton::after {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.07),
+    transparent
+  );
+}
+
+/* Dark mode support */
+[data-theme='dark'] {
+  --skeleton-bg: var(--rt-color-text-secondary);
+  --card-bg: var(--rt-color-text);
+  --border-color: var(--rt-color-text-secondary);
+  --table-header-bg: var(--rt-color-text);
+}
+
+[data-theme='light'] {
+  --skeleton-bg: var(--rt-color-border);
+  --card-bg: var(--rt-color-bg-elevated);
+  --border-color: var(--rt-color-border);
+  --table-header-bg: var(--rt-color-bg-subtle);
+}

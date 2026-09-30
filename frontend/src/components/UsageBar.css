@@ -1,0 +1,220 @@
+.usage-bar {
+  padding: var(--rt-space-2) var(--rt-space-3);
+  margin: 0 var(--rt-space-2) var(--rt-space-1);
+  border-radius: var(--rt-radius-lg);
+  background: var(--rt-color-bg-muted);
+  border: 1px solid var(--rt-layout-rail-border);
+}
+
+.usage-bar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.375rem;
+  gap: var(--rt-space-2);
+}
+
+.usage-bar-title-group {
+  display: flex;
+  align-items: center;
+  gap: var(--rt-space-1);
+}
+
+.usage-bar-label {
+  font-size: var(--rt-text-2xs);
+  font-weight: var(--rt-weight-semibold);
+  color: var(--rt-color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+
+.usage-bar-help-btn:hover {
+  color: var(--rt-color-accent);
+  background-color: var(--rt-color-bg-subtle);
+}
+
+
+.usage-bar-count {
+  font-size: var(--rt-text-2xs);
+  font-weight: var(--rt-weight-semibold);
+  color: var(--rt-color-text-tertiary);
+  white-space: nowrap;
+}
+
+.usage-bar-count.danger {
+  color: var(--rt-color-danger);
+}
+
+.usage-bar-track {
+  width: 100%;
+  height: 4px;
+  background: var(--rt-color-border);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.usage-bar-fill {
+  height: 100%;
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+.usage-bar-fill.ok {
+  background: var(--rt-color-success);
+}
+
+.usage-bar-fill.warning {
+  background: var(--rt-color-warning);
+}
+
+.usage-bar-fill.danger {
+  background: var(--rt-color-danger);
+}
+
+.usage-bar-count.warning {
+  color: var(--rt-color-warning);
+}
+
+.usage-bar-footer {
+  margin-top: var(--rt-space-1);
+}
+
+.usage-bar-hint {
+  font-size: var(--rt-text-2xs);
+  color: var(--rt-color-text-tertiary);
+}
+
+.usage-bar-hint.warning {
+  color: var(--rt-color-warning);
+  font-weight: var(--rt-weight-semibold);
+}
+
+.usage-bar-hint.danger {
+  color: var(--rt-color-danger);
+  font-weight: var(--rt-weight-semibold);
+}
+
+.usage-bar-upgrade {
+  display: block;
+  margin-top: var(--rt-space-2);
+  font-size: var(--rt-text-2xs);
+  font-weight: var(--rt-weight-semibold);
+  color: var(--rt-color-danger);
+  text-decoration: none;
+  text-align: center;
+}
+
+.usage-bar-upgrade:hover {
+  text-decoration: underline;
+}
+
+/* Quota Help Modal Content & Grid */
+.quota-dialog-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--rt-space-4);
+  padding: var(--rt-space-1) 0;
+}
+
+.quota-status-card {
+  padding: var(--rt-space-4);
+  border-radius: var(--rt-radius-lg);
+  background-color: var(--rt-color-bg-subtle);
+  border: 1px solid var(--rt-color-border);
+  display: flex;
+  flex-direction: column;
+  gap: var(--rt-space-3);
+}
+
+.quota-status-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--rt-space-3);
+  flex-wrap: wrap;
+}
+
+.quota-status-card__title {
+  display: flex;
+  align-items: center;
+  gap: var(--rt-space-2);
+  font-weight: var(--rt-weight-bold);
+  font-size: var(--rt-text-md);
+  color: var(--rt-color-text);
+}
+
+.quota-status-card__badge {
+  font-weight: var(--rt-weight-bold);
+  font-size: var(--rt-text-md);
+}
+
+.quota-status-card__badge.ok {
+  color: var(--rt-color-accent);
+}
+
+.quota-status-card__badge.warning {
+  color: var(--rt-color-warning);
+}
+
+.quota-status-card__badge.danger {
+  color: var(--rt-color-danger);
+}
+
+.quota-status-card__desc {
+  font-size: var(--rt-text-sm);
+  color: var(--rt-color-text-secondary);
+  line-height: 1.6;
+}
+
+.quota-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--rt-space-4);
+}
+
+@media (max-width: 768px) {
+  .quota-grid {
+    grid-template-columns: 1fr;
+    gap: var(--rt-space-3);
+  }
+}
+
+.quota-info-card {
+  padding: var(--rt-space-4);
+  border-radius: var(--rt-radius-lg);
+  background-color: var(--rt-color-bg-subtle);
+  border: 1px solid var(--rt-color-border);
+  display: flex;
+  flex-direction: column;
+  gap: var(--rt-space-2);
+}
+
+.quota-info-card__title {
+  display: flex;
+  align-items: center;
+  gap: var(--rt-space-2);
+  font-weight: var(--rt-weight-bold);
+  font-size: var(--rt-text-sm);
+  color: var(--rt-color-text);
+}
+
+.quota-info-card__desc {
+  font-size: var(--rt-text-xs);
+  color: var(--rt-color-text-secondary);
+  line-height: 1.65;
+}
+
+.quota-info-card__list {
+  margin: 0;
+  padding-left: 1.2rem;
+}
+
+.quota-info-card__list li {
+  margin-bottom: var(--rt-space-1);
+}
+
+.quota-info-card__list li:last-child {
+  margin-bottom: 0;
+}
+

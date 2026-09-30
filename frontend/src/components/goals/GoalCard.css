@@ -1,0 +1,436 @@
+/* GoalCard.css — Design-token-only, no raw hex */
+
+.goal-card {
+  background: var(--rt-card-bg);
+  border: var(--rt-card-border);
+  border-radius: var(--rt-card-radius);
+  padding: var(--rt-space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--rt-space-4);
+  transition:
+    box-shadow var(--rt-transition-base),
+    border-color var(--rt-transition-fast),
+    transform var(--rt-transition-fast);
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.goal-card:hover {
+  box-shadow: var(--rt-shadow-md);
+  border-color: var(--rt-color-border-strong);
+  transform: translateY(-1px);
+}
+
+.goal-card:focus-visible {
+  outline: 2px solid var(--rt-color-accent);
+  outline-offset: 2px;
+}
+
+/* Status left border accent */
+.goal-card::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  border-radius: var(--rt-radius-sm) 0 0 var(--rt-radius-sm);
+  transition: background var(--rt-transition-fast);
+}
+
+/* Status-based accent — color comes from the pacing-aware goal.status (set
+   inline as --rt-goal-status-color) and is shown when the whole card is
+   hovered, fading in/out over the design-token transition duration. */
+.goal-card:hover::before {
+  background: var(--rt-goal-status-color);
+}
+
+/* Header */
+.goal-card__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--rt-space-3);
+}
+
+.goal-card__meta {
+  display: flex;
+  flex-direction: column;
+  gap: var(--rt-space-1);
+  flex: 1;
+  min-width: 0;
+}
+
+.goal-card__title-row {
+  display: flex;
+  align-items: center;
+  gap: var(--rt-space-3);
+}
+
+.goal-card__metric-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: var(--rt-radius-md);
+  background: var(--rt-color-bg-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--rt-color-text-secondary);
+  flex-shrink: 0;
+  transition:
+    background var(--rt-transition-fast),
+    color var(--rt-transition-fast);
+}
+
+.goal-card:hover .goal-card__metric-icon {
+  background: var(--rt-color-accent-muted);
+  color: var(--rt-color-accent);
+}
+
+.goal-card__title-texts {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.goal-card__title {
+  font-size: var(--rt-text-md);
+  font-weight: var(--rt-weight-bold);
+  color: var(--rt-color-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.goal-card__period-label {
+  font-size: var(--rt-text-xs);
+  color: var(--rt-color-text-tertiary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Actions */
+.goal-card__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--rt-space-1);
+  position: absolute;
+  top: var(--rt-space-4);
+  right: var(--rt-space-4);
+  opacity: 0;
+  transition: opacity var(--rt-transition-fast);
+  z-index: 2;
+}
+
+.goal-card:hover .goal-card__actions {
+  opacity: 1;
+}
+
+
+.goal-card__action-btn:hover {
+  background: var(--rt-color-bg-muted);
+  color: var(--rt-color-text);
+  border-color: var(--rt-color-border-strong);
+}
+
+.goal-card__action-btn--danger:hover {
+  background: var(--rt-color-danger-surface);
+  color: var(--rt-color-danger);
+  border-color: var(--rt-color-danger);
+}
+
+/* Status badge */
+.goal-card__status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--rt-space-1);
+  font-size: var(--rt-text-2xs);
+  font-weight: var(--rt-weight-semibold);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 3px var(--rt-space-2);
+  border-radius: var(--rt-radius-pill);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.goal-card__status-badge--met,
+.goal-card__status-badge--ahead {
+  background: var(--rt-color-success-surface);
+  color: var(--rt-color-success);
+}
+
+.goal-card__status-badge--on_track {
+  background: var(--rt-color-accent-muted);
+  color: var(--rt-color-accent);
+}
+
+.goal-card__status-badge--behind {
+  background: var(--rt-color-warning-surface);
+  color: var(--rt-color-warning);
+}
+
+.goal-card__status-badge--missed {
+  background: var(--rt-color-danger-surface);
+  color: var(--rt-color-danger);
+}
+
+.goal-card__status-badge--upcoming {
+  background: var(--rt-color-bg-muted);
+  color: var(--rt-color-text-tertiary);
+}
+
+/* Progress section */
+.goal-card__progress-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--rt-space-2);
+}
+
+.goal-card__progress-labels {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--rt-space-2);
+}
+
+.goal-card__actual-value {
+  font-size: var(--rt-text-xl);
+  font-weight: var(--rt-weight-bold);
+  color: var(--rt-color-text);
+  line-height: var(--rt-leading-tight);
+}
+
+.goal-card__target-sub {
+  font-size: var(--rt-text-xs);
+  font-weight: var(--rt-weight-medium);
+  color: var(--rt-color-text-tertiary);
+}
+
+.goal-card__progress-badge {
+  font-size: var(--rt-text-xs);
+  font-weight: var(--rt-weight-semibold);
+  color: var(--rt-color-text-secondary);
+  background: var(--rt-color-bg-muted);
+  padding: 2px var(--rt-space-2);
+  border-radius: var(--rt-radius-pill);
+}
+
+/* Dual-track progress bar */
+.goal-card__progress-track {
+  position: relative;
+  height: 8px;
+  background: var(--rt-color-bg-muted);
+  border-radius: var(--rt-radius-pill);
+  overflow: hidden;
+}
+
+.goal-card__progress-expected {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background: var(--rt-color-border-strong);
+  border-radius: var(--rt-radius-pill);
+  transition: width var(--rt-transition-base);
+}
+
+.goal-card__progress-actual {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  border-radius: var(--rt-radius-pill);
+  transition: width var(--rt-transition-base);
+}
+
+.goal-card--met .goal-card__progress-actual,
+.goal-card--ahead .goal-card__progress-actual:hover {
+  background: var(--rt-color-success);
+}
+.goal-card--on_track .goal-card__progress-actual:hover {
+  background: var(--rt-color-accent);
+}
+.goal-card--behind .goal-card__progress-actual:hover {
+  background: var(--rt-color-warning);
+}
+.goal-card--missed .goal-card__progress-actual:hover {
+  background: var(--rt-color-danger);
+}
+.goal-card--upcoming .goal-card__progress-actual:hover {
+  background: var(--rt-color-text-disabled);
+}
+
+.goal-card__progress-adaptive {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--rt-color-info),
+    var(--rt-color-info) 6px,
+    transparent 6px,
+    transparent 12px
+  );
+  border-radius: var(--rt-radius-pill);
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.85;
+}
+
+.goal-card__progress-pct-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: var(--rt-text-xs);
+  color: var(--rt-color-text-tertiary);
+}
+
+.goal-card__progress-pct-actual {
+  font-weight: var(--rt-weight-medium);
+  color: var(--rt-color-text-tertiary);
+}
+
+.goal-card__progress-expected-text {
+  font-size: var(--rt-text-2xs);
+  font-weight: var(--rt-weight-semibold);
+  color: var(--rt-color-text-secondary);
+}
+
+/* Anomaly timeline pins */
+.goal-card__anomaly-badges {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.goal-card__anomaly-badge {
+  position: absolute;
+  top: -6px;
+  transform: translateX(-50%);
+  width: 16px;
+  height: 16px;
+  border-radius: var(--rt-radius-pill);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  color: var(--rt-color-on-primary);
+  box-shadow: var(--rt-shadow-xs);
+}
+
+.goal-card__anomaly-badge--spike {
+  background: var(--rt-color-success);
+}
+.goal-card__anomaly-badge--dip {
+  background: var(--rt-color-danger);
+}
+
+/* Stats 4-Grid */
+.goal-card__stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--rt-space-2) var(--rt-space-3);
+  padding: var(--rt-space-3);
+  background: var(--rt-color-bg-subtle);
+  border-radius: var(--rt-radius-md);
+  border: 1px solid var(--rt-color-border);
+}
+
+.goal-card__stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.goal-card__stat-label {
+  font-size: var(--rt-text-2xs);
+  color: var(--rt-color-text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-weight: var(--rt-weight-medium);
+}
+
+.goal-card__stat-value {
+  font-size: var(--rt-text-sm);
+  font-weight: var(--rt-weight-semibold);
+  color: var(--rt-color-text);
+}
+
+.goal-card__stat-value--positive {
+  color: var(--rt-color-success);
+}
+.goal-card__stat-value--negative {
+  color: var(--rt-color-danger);
+}
+
+.goal-card__days-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  font-size: var(--rt-text-xs);
+  font-weight: var(--rt-weight-semibold);
+  color: var(--rt-color-text-secondary);
+}
+
+/* Feature Badges Strip */
+.goal-card__badges-strip {
+  display: flex;
+  align-items: center;
+  gap: var(--rt-space-2);
+  flex-wrap: wrap;
+}
+
+.goal-card__sub-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: var(--rt-text-2xs);
+  font-weight: var(--rt-weight-medium);
+  color: var(--rt-color-text-secondary);
+  background: var(--rt-color-bg-muted);
+  padding: 2px var(--rt-space-2);
+  border-radius: var(--rt-radius-pill);
+}
+
+.goal-card__adaptive-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: var(--rt-text-2xs);
+  font-weight: var(--rt-weight-semibold);
+  color: var(--rt-color-info-emphasis);
+  background: var(--rt-color-info-surface);
+  padding: 2px var(--rt-space-2);
+  border-radius: var(--rt-radius-pill);
+}
+
+.goal-card__anomaly-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: var(--rt-text-2xs);
+  font-weight: var(--rt-weight-semibold);
+  color: var(--rt-color-warning);
+  background: var(--rt-color-warning-surface);
+  padding: 2px var(--rt-space-2);
+  border-radius: var(--rt-radius-pill);
+}
+
+/* Footer link button */
+
+
+.goal-card__detail-btn:hover {
+  background: var(--rt-color-accent-muted);
+  color: var(--rt-color-accent-hover);
+}

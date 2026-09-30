@@ -1,0 +1,204 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    expose:
+      - "5432"
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB:-revtube}
+      - POSTGRES_USER=${POSTGRES_USER:-revtube}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-revtube_secure_pg}
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    restart: always
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "pg_isready -U ${POSTGRES_USER:-revtube} -d ${POSTGRES_DB:-revtube}",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+
+  redis:
+    image: redis:7-alpine
+    expose:
+      - "6379"
+    volumes:
+      - redis-data:/data
+    command: redis-server --requirepass ${REDIS_PASSWORD:-revtube_secure_cache} --appendonly yes --maxmemory 256mb --maxmemory-policy allkeys-lru
+    restart: always
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "redis-cli",
+          "-a",
+          "${REDIS_PASSWORD:-revtube_secure_cache}",
+          "ping",
+        ]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+    deploy:
+      resources:
+        limits:
+          memory: 384M
+
+  redis-queue:
+    image: redis:7-alpine
+    expose:
+      - "6379"
+    volumes:
+      - redis-queue-data:/data
+    command: redis-server --requirepass ${REDIS_PASSWORD:-revtube_secure_cache} --appendonly yes --maxmemory 64mb --maxmemory-policy noeviction
+    restart: always
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "redis-cli",
+          "-a",
+          "${REDIS_PASSWORD:-revtube_secure_cache}",
+          "ping",
+        ]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+    deploy:
+      resources:
+        limits:
+          memory: 128M
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+      args:
+        # Auto-generate Drizzle migrations on DEV builds only (defaults OFF so
+        # production always ships the committed migrations). Enable for local
+        # dev by setting GENERATE_DB_MIGRATIONS=true (e.g. via --build-arg or in
+        # your .env) — see backend/Dockerfile for details.
+        GENERATE_DB_MIGRATIONS: ${GENERATE_DB_MIGRATIONS:-false}
+    command: ["./start.sh"]
+    ports:
+      - "${BACKEND_PORT:-3000}:3000"
+    expose:
+      - "3000"
+    environment:
+      # Coolify: SERVICE_URL_<service>_<port> registers Traefik routing (see compose docs).
+      # Leave the backend domain empty in Coolify unless you want a separate API host.
+      SERVICE_URL_BACKEND_3000: ""
+      PORT: "3000"
+      YOUTUBE_API_KEY: "${YOUTUBE_API_KEY}"
+      YOUTUBE_CLIENT_ID: "${YOUTUBE_CLIENT_ID}"
+      YOUTUBE_CLIENT_SECRET: "${YOUTUBE_CLIENT_SECRET}"
+      VITE_FIREBASE_PROJECT_ID: "${VITE_FIREBASE_PROJECT_ID}"
+      FIREBASE_SERVICE_ACCOUNT: "${FIREBASE_SERVICE_ACCOUNT:-}"
+      # Public URL for email links; Coolify injects SERVICE_URL_FRONTEND when set on frontend.
+      VITE_FRONTEND_URL: "${VITE_FRONTEND_URL:-${SERVICE_URL_FRONTEND:-}}"
+      FRONTEND_URL: "${FRONTEND_URL:-${VITE_FRONTEND_URL:-${SERVICE_URL_FRONTEND:-}}}"
+      # Optional explicit redirect-URI allowlist (comma-separated) for /api/oauth/exchange
+      YOUTUBE_OAUTH_REDIRECT_URIS: "${YOUTUBE_OAUTH_REDIRECT_URIS:-}"
+      SMTP_HOST: "${SMTP_HOST}"
+      SMTP_PORT: "${SMTP_PORT}"
+      SMTP_USER: "${SMTP_USER}"
+      SMTP_PASSWORD: "${SMTP_PASSWORD}"
+      SMTP_FROM: "${SMTP_FROM}"
+      SMTP_FROM_NAME: "${SMTP_FROM_NAME}"
+      REDIS_URL: "redis://:${REDIS_PASSWORD:-revtube_secure_cache}@redis:6379"
+      QUEUE_REDIS_URL: "redis://:${REDIS_PASSWORD:-revtube_secure_cache}@redis-queue:6379"
+      POSTGRES_HOST: "postgres"
+      POSTGRES_PORT: "5432"
+      POSTGRES_DB: "${POSTGRES_DB:-revtube}"
+      POSTGRES_USER: "${POSTGRES_USER:-revtube}"
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD:-revtube_secure_pg}"
+      ANALYTICS_SOURCE: "${ANALYTICS_SOURCE:-postgres-first}"
+      # DeepSeek Chat (AI assistant)
+      DEEPSEEK_API_KEY: "${DEEPSEEK_API_KEY}"
+      DEEPSEEK_MODEL: "${DEEPSEEK_MODEL:-deepseek-chat}"
+      CHAT_MAX_TOKENS: "${CHAT_MAX_TOKENS:-4096}"
+      CHAT_MAX_ITERATIONS: "${CHAT_MAX_ITERATIONS:-10}"
+      CHAT_CONV_TTL_MINUTES: "${CHAT_CONV_TTL_MINUTES:-30}"
+      NODE_ENV: "development"
+      GEMINI_API_KEY: "${GEMINI_API_KEY}"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      redis-queue:
+        condition: service_healthy
+    restart: always
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://127.0.0.1:3000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+    develop:
+      watch:
+        - action: sync+restart
+          path: ./backend
+          target: /app
+          ignore:
+            - node_modules/
+        - action: rebuild
+          path: ./backend/package.json
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        - VITE_FIREBASE_API_KEY=${VITE_FIREBASE_API_KEY}
+        - VITE_FIREBASE_AUTH_DOMAIN=${VITE_FIREBASE_AUTH_DOMAIN}
+        - VITE_FIREBASE_PROJECT_ID=${VITE_FIREBASE_PROJECT_ID}
+        - VITE_FIREBASE_STORAGE_BUCKET=${VITE_FIREBASE_STORAGE_BUCKET}
+        - VITE_FIREBASE_MESSAGING_SENDER_ID=${VITE_FIREBASE_MESSAGING_SENDER_ID}
+        - VITE_FIREBASE_APP_ID=${VITE_FIREBASE_APP_ID}
+        - VITE_BACKEND_URL=${VITE_BACKEND_URL:-/api}
+        - VITE_GOOGLE_CLIENT_ID=${VITE_GOOGLE_CLIENT_ID}
+    environment:
+      # Primary public URL + internal port 80 (Coolify Appwrite-style pattern).
+      SERVICE_URL_FRONTEND_80: ""
+      # Reusable base URL for other services (e.g. backend email links).
+      SERVICE_URL_FRONTEND: ""
+    ports:
+      - "${FRONTEND_PORT:-8081}:80"
+    expose:
+      - "80"
+    depends_on:
+      - backend
+    restart: always
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://127.0.0.1:80/"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+    deploy:
+      resources:
+        limits:
+          memory: 128M
+    develop:
+      watch:
+        - action: rebuild
+          path: ./frontend
+          ignore:
+            - node_modules/
+
+volumes:
+  redis-data:
+    driver: local
+  redis-queue-data:
+    driver: local
+  postgres-data:
+    driver: local

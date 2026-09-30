@@ -1,0 +1,604 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   RevTube Intelligence Suite -- Thumbnail Optimizer Page CSS
+   100% design-token compliant (no raw hex colors)
+   ───────────────────────────────────────────────────────────────────────────── */
+
+/* Common RTIS Card Surface */
+
+/* ── Section Header Bar (matches aop/va pattern) ─────────────────────────── */
+.rtis-section-header-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--rt-space-4);
+  padding-bottom: var(--rt-space-2);
+}
+
+.rtis-section-heading {
+  font-size: var(--rt-text-sm);
+  font-weight: var(--rt-weight-bold);
+  color: var(--rt-color-text);
+  letter-spacing: 0.02em;
+}
+
+/* Legacy section title — preserved for backward compat */
+.rtis-section-title {
+  font-size: var(--rt-text-sm);
+  font-weight: var(--rt-weight-bold);
+  color: var(--rt-color-text);
+  letter-spacing: 0.02em;
+  margin-bottom: var(--rt-space-4);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Loading State Card */
+.rtis-loading-card {
+  padding: var(--rt-space-6);
+  text-align: center;
+  margin-bottom: var(--rt-space-6);
+  background-color: var(--rt-color-bg-elevated);
+  border: 1px solid var(--rt-color-border);
+  border-radius: var(--rt-radius-lg);
+  box-shadow: var(--rt-shadow-xs);
+}
+
+.rtis-loading-spinner {
+  display: inline-block;
+  width: 28px;
+  height: 28px;
+  border: 3px solid var(--rt-color-border);
+  border-top-color: var(--rt-color-accent);
+  border-radius: 50%;
+  animation: rtis-spin 0.8s linear infinite;
+  margin-bottom: var(--rt-space-3);
+}
+
+@keyframes rtis-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.rtis-loading-text {
+  font-size: var(--rt-text-md);
+  font-weight: var(--rt-weight-semibold);
+  color: var(--rt-color-text);
+  margin-bottom: var(--rt-space-1);
+}
+
+.rtis-loading-subtext {
+  font-size: var(--rt-text-xs);
+  color: var(--rt-color-text-tertiary);
+}
+
+/* Audit Input Form */
+.rtis-input-card {
+  padding: var(--rt-space-6);
+  margin-bottom: var(--rt-space-6);
+  background-color: var(--rt-color-bg-elevated);
+  border: 1px solid var(--rt-color-border);
+  border-radius: var(--rt-radius-lg);
+  box-shadow: var(--rt-shadow-xs);
+}
+
+.rtis-form-label-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--rt-space-2);
+}
+
+.rtis-form-label {
+  display: block;
+  font-size: var(--rt-text-sm);
+  font-weight: var(--rt-weight-semibold);
+  color: var(--rt-color-text);
+  margin-bottom: var(--rt-space-2);
+}
+
+.rtis-form-hint {
+  font-size: var(--rt-text-xs);
+  color: var(--rt-color-text-tertiary);
+  margin-bottom: var(--rt-space-2);
+}
+
+/* Smaller hint variant (e.g. long helper copy under a form label). */
+.rtis-form-hint--small {
+  font-size: var(--rt-text-2xs);
+  line-height: 1.4;
+}
+
+.rtis-error-banner {
+  margin-top: var(--rt-space-3);
+  padding: var(--rt-space-3) var(--rt-space-4);
+  background-color: var(--rt-color-danger-surface);
+  border: 1px solid var(--rt-color-danger);
+  border-radius: var(--rt-radius-md);
+  color: var(--rt-color-danger);
+  font-size: var(--rt-text-sm);
+  font-weight: var(--rt-weight-medium);
+  display: flex;
+  align-items: flex-start;
+  gap: var(--rt-space-2);
+}
+
+/* ── Report Overview Banner (matches aop-overview-banner / va-overview-banner) ── */
+.rtis-report-bar {
+  padding: var(--rt-space-6);
+  margin-bottom: var(--rt-space-6);
+  background-color: var(--rt-color-bg-elevated);
+  border: 1px solid var(--rt-color-border);
+  border-radius: var(--rt-radius-lg);
+  box-shadow: var(--rt-shadow-xs);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--rt-space-6);
+  flex-wrap: wrap;
+}
+
+.rtis-report-info h2 {
+  font-size: var(--rt-text-display);
+  font-weight: var(--rt-weight-bold);
+  color: var(--rt-color-text);
+  margin: 0 0 var(--rt-space-1) 0;
+  line-height: var(--rt-leading-tight);
+}
+
+.rtis-report-info p {
+  font-size: var(--rt-text-sm);
+  color: var(--rt-color-text-tertiary);
+  margin: 0;
+}
+
+
+/* Score group inside banner — mirrors aop-overview-score-group */
+
+
+
+
+/* Cross-Video Table -- overflow-x scrollable so resizable columns can exceed
+   the container width instead of being clipped. */
+.rtis-table-wrapper {
+  background-color: var(--rt-color-bg-elevated);
+  border: 1px solid var(--rt-color-border);
+  border-radius: var(--rt-radius-lg);
+  box-shadow: var(--rt-shadow-xs);
+  overflow-x: auto;
+  overflow-y: hidden;
+  margin-bottom: var(--rt-space-6);
+}
+
+.rtis-table-header-cell {
+  background-color: var(--rt-color-bg-subtle) !important;
+  color: var(--rt-color-text-secondary) !important;
+  font-size: var(--rt-text-2xs) !important;
+  font-weight: var(--rt-weight-bold) !important;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid var(--rt-color-border) !important;
+}
+
+.rtis-table-row {
+  transition: background-color 0.15s ease;
+}
+
+.rtis-table-row:hover {
+  background-color: var(--rt-color-bg-highlight) !important;
+}
+
+/* Deep Dive Instance Card */
+.rtis-instance-block {
+  padding-top: var(--rt-space-6);
+  margin-top: var(--rt-space-6);
+  border-top: 1px solid var(--rt-color-border);
+}
+
+.rtis-instance-block:first-child {
+  padding-top: 0;
+  margin-top: 0;
+  border-top: none;
+}
+
+.rtis-score-card {
+  padding: var(--rt-space-4);
+  background-color: var(--rt-color-bg-elevated);
+  border: 1px solid var(--rt-color-border);
+  border-radius: var(--rt-radius-lg);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--rt-shadow-xs);
+  display: flex;
+  flex-direction: column;
+}
+
+.rtis-score-card--compact {
+  gap: var(--rt-space-2);
+}
+
+.rtis-score-label {
+  font-size: var(--rt-text-2xs);
+  font-weight: var(--rt-weight-bold);
+  text-transform: uppercase;
+  color: var(--rt-color-text-tertiary);
+  letter-spacing: 0.05em;
+}
+
+.rtis-score-title {
+  font-size: var(--rt-text-md);
+  font-weight: var(--rt-weight-bold);
+  color: var(--rt-color-text);
+  margin-top: var(--rt-space-1);
+  margin-bottom: var(--rt-space-3);
+  word-break: break-word;
+  overflow-wrap: anywhere;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 1.2em;
+}
+
+.rtis-score-circle-container {
+  position: relative;
+  display: inline-block;
+  margin: var(--rt-space-2) 0;
+}
+
+.rtis-score-circle-container--sm {
+  margin: var(--rt-space-1) 0;
+}
+
+.rtis-score-number {
+  font-size: var(--rt-text-display);
+  font-weight: var(--rt-weight-bold);
+  line-height: 1;
+  color: var(--rt-color-text);
+}
+
+.rtis-score-number--sm {
+  font-size: 1.35rem;
+}
+
+.rtis-score-number-label {
+  font-size: var(--rt-text-2xs);
+  font-weight: var(--rt-weight-bold);
+  color: var(--rt-color-text-tertiary);
+  letter-spacing: 0.05em;
+}
+
+/* Potential progress — compact bar instead of full-width badge */
+.rtis-potential-row {
+  text-align: left;
+  padding: var(--rt-space-3);
+  background: var(--rt-color-bg-subtle);
+  border: 1px solid var(--rt-color-border);
+  border-radius: var(--rt-radius-md);
+}
+
+.rtis-potential-row__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--rt-space-2);
+  margin-bottom: var(--rt-space-2);
+}
+
+.rtis-potential-row__label {
+  font-size: var(--rt-text-2xs);
+  font-weight: var(--rt-weight-bold);
+  color: var(--rt-color-text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.rtis-potential-row__value {
+  font-size: var(--rt-text-xs);
+  font-weight: var(--rt-weight-bold);
+  color: var(--rt-color-accent);
+}
+
+.rtis-potential-track {
+  position: relative;
+  height: 8px;
+  border-radius: var(--rt-radius-pill);
+  background: var(--rt-color-border);
+  overflow: hidden;
+}
+
+.rtis-potential-track__fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  border-radius: var(--rt-radius-pill);
+  background: linear-gradient(
+    90deg,
+    var(--rt-color-accent) 0%,
+    var(--rt-color-success) 100%
+  );
+  transition: width 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.rtis-potential-track__current {
+  position: absolute;
+  top: 50%;
+  width: 2px;
+  height: 12px;
+  margin-top: -6px;
+  background: var(--rt-color-text);
+  border-radius: var(--rt-radius-pill);
+  box-shadow: 0 0 0 2px var(--rt-color-bg-subtle);
+  transform: translateX(-50%);
+}
+
+.rtis-potential-row__scale {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--rt-space-2);
+  margin-top: 4px;
+  font-size: 10px;
+  color: var(--rt-color-text-tertiary);
+  font-weight: var(--rt-weight-medium);
+}
+
+.rtis-potential-row__delta {
+  display: inline-flex;
+  margin-top: var(--rt-space-1);
+  padding: 2px var(--rt-space-2);
+  border-radius: var(--rt-radius-pill);
+  background: var(--rt-color-success-surface);
+  border: 1px solid var(--rt-color-success);
+  color: var(--rt-color-success);
+  font-size: 10px;
+  font-weight: var(--rt-weight-bold);
+  letter-spacing: 0.02em;
+}
+
+/* legacy badge kept for any other view */
+.rtis-potential-badge {
+  padding: var(--rt-space-2) var(--rt-space-3);
+  background-color: var(--rt-color-bg-subtle);
+  border: 1px solid var(--rt-color-border);
+  border-radius: var(--rt-radius-sm);
+  margin-bottom: var(--rt-space-3);
+}
+
+.rtis-potential-badge-text {
+  font-size: var(--rt-text-xs);
+  font-weight: var(--rt-weight-semibold);
+  color: var(--rt-color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.rtis-context-card {
+  padding: var(--rt-space-4);
+  background-color: var(--rt-color-bg-elevated);
+  border: 1px solid var(--rt-color-border);
+  border-radius: var(--rt-radius-lg);
+  box-shadow: var(--rt-shadow-xs);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Pie breakdown card — 12 categories */
+.rtis-pie-card {
+  padding: var(--rt-space-4);
+  background-color: var(--rt-color-bg-elevated);
+  border: 1px solid var(--rt-color-border);
+  border-radius: var(--rt-radius-lg);
+  box-shadow: var(--rt-shadow-xs);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.rtis-pie-card__header {
+  font-size: var(--rt-text-xs);
+  font-weight: var(--rt-weight-bold);
+  color: var(--rt-color-text);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.rtis-pie-card__sub {
+  font-size: var(--rt-text-2xs);
+  color: var(--rt-color-text-tertiary);
+  margin-top: 2px;
+  margin-bottom: var(--rt-space-2);
+}
+
+.rtis-pie-card__legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 8px;
+  margin-top: var(--rt-space-2);
+  max-height: 88px;
+  overflow-y: auto;
+  padding-right: 2px;
+}
+
+.rtis-pie-card__legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 10px;
+  line-height: 1.2;
+  color: var(--rt-color-text-secondary);
+  background: var(--rt-color-bg-subtle);
+  border: 1px solid var(--rt-color-border);
+  border-radius: var(--rt-radius-pill);
+  padding: 2px 6px;
+  max-width: 100%;
+}
+
+.rtis-pie-card__legend-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.rtis-pie-card__legend-label {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 84px;
+}
+
+.rtis-pie-card__legend-value {
+  font-weight: var(--rt-weight-bold);
+  color: var(--rt-color-text);
+  margin-left: 2px;
+}
+
+.rtis-context-header {
+  font-size: var(--rt-text-2xs);
+  font-weight: var(--rt-weight-bold);
+  color: var(--rt-color-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding-bottom: var(--rt-space-2);
+  margin-bottom: var(--rt-space-3);
+  border-bottom: 1px solid var(--rt-color-border);
+}
+
+.rtis-context-item {
+  margin-bottom: var(--rt-space-3);
+}
+
+.rtis-context-item:last-child {
+  margin-bottom: 0;
+}
+
+.rtis-context-item-label {
+  font-size: var(--rt-text-2xs);
+  font-weight: var(--rt-weight-bold);
+  color: var(--rt-color-text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  margin-bottom: 2px;
+}
+
+.rtis-context-item-value {
+  font-size: var(--rt-text-sm);
+  color: var(--rt-color-text);
+  font-weight: var(--rt-weight-medium);
+}
+
+.rtis-verdict-card {
+  padding: var(--rt-space-4);
+  margin-bottom: var(--rt-space-4);
+  background-color: var(--rt-color-bg-subtle);
+  border: 1px solid var(--rt-color-border);
+  border-radius: var(--rt-radius-lg);
+}
+
+.rtis-verdict-label {
+  font-size: var(--rt-text-2xs);
+  font-weight: var(--rt-weight-bold);
+  color: var(--rt-color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  display: flex;
+  align-items: center;
+  gap: var(--rt-space-2);
+  margin-bottom: var(--rt-space-2);
+}
+
+.rtis-verdict-text {
+  font-size: var(--rt-text-sm);
+  font-style: italic;
+  color: var(--rt-color-text);
+  line-height: 1.5;
+}
+
+/* Priority Tier Groups in Detailed Analysis -- Clean Neutral Surfaces */
+.rtis-priority-card {
+  padding: var(--rt-space-5);
+  margin-bottom: var(--rt-space-4);
+  border-radius: var(--rt-radius-lg);
+  border: 1px solid var(--rt-color-border);
+  background-color: var(--rt-color-bg-elevated);
+  box-shadow: var(--rt-shadow-xs);
+}
+
+.rtis-priority-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: var(--rt-space-4);
+}
+
+.rtis-priority-title {
+  font-size: var(--rt-text-sm);
+  font-weight: var(--rt-weight-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.rtis-priority-title--red {
+  color: var(--rt-color-danger);
+}
+
+.rtis-priority-title--yellow {
+  color: var(--rt-color-warning);
+}
+
+.rtis-priority-title--grey {
+  color: var(--rt-color-text-secondary);
+}
+
+.rtis-priority-line {
+  flex: 1;
+  height: 1px;
+  background-color: var(--rt-color-border);
+  margin-left: var(--rt-space-3);
+}
+
+.rtis-area-item-card {
+  background-color: var(--rt-color-bg-elevated) !important;
+  border: 1px solid var(--rt-color-border) !important;
+  border-radius: var(--rt-radius-lg) !important;
+  box-shadow: var(--rt-shadow-xs) !important;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: border-color var(--rt-transition-fast), box-shadow var(--rt-transition-fast);
+}
+
+.rtis-area-item-card:hover {
+  border-color: var(--rt-color-border-strong) !important;
+  box-shadow: var(--rt-shadow-sm) !important;
+}
+
+/* ── Deep-Dive Accordions (mirrors va-video-accordion / aop-detail-accordion) ── */
+.rtis-video-accordion {
+  margin-bottom: var(--rt-space-4) !important;
+  border-radius: var(--rt-radius-lg) !important;
+  border: 1px solid var(--rt-color-border) !important;
+  background-color: var(--rt-color-bg-elevated) !important;
+  box-shadow: var(--rt-shadow-xs) !important;
+  transition: border-color var(--rt-transition-fast), box-shadow var(--rt-transition-fast);
+}
+
+.rtis-video-accordion:before {
+  display: none !important;
+}
+
+.rtis-video-accordion:hover {
+  border-color: var(--rt-color-border-strong) !important;
+}
+
+.rtis-video-accordion.Mui-expanded {
+  border-color: var(--rt-color-accent) !important;
+  box-shadow: var(--rt-shadow-sm) !important;
+}
+
+/* Idle / Empty State */
+
+
+

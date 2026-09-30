@@ -1,0 +1,260 @@
+/* BrandLoader — full-page TubeKeter identity loader with spinner + shimmer */
+
+.rt-brand-loader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background: var(--rt-color-bg-app);
+  color: var(--rt-color-text);
+  animation: rt-brand-loader-fade 0.28s ease-out;
+}
+
+.rt-brand-loader--fullscreen {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  min-height: 100vh;
+  min-height: 100dvh;
+  background: var(--rt-color-bg-elevated);
+  /* soft veil over app — keeps context but feels modal */
+  backdrop-filter: blur(2px);
+}
+
+.rt-brand-loader--overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 40;
+  background: var(--rt-color-bg-elevated);
+  opacity: 0.98;
+}
+
+.rt-brand-loader--page {
+  min-height: 42vh;
+  padding: var(--rt-space-8) var(--rt-space-6);
+}
+
+.rt-brand-loader--inline {
+  min-height: 0;
+  padding: var(--rt-space-6) var(--rt-space-4);
+  background: transparent;
+}
+
+.rt-brand-loader__stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--rt-space-5);
+  text-align: center;
+  max-width: 22rem;
+}
+
+/* ── Mark: logo + double ring + glow ───────────────────────── */
+.rt-brand-loader__mark {
+  position: relative;
+  width: 96px;
+  height: 96px;
+  display: grid;
+  place-items: center;
+  isolation: isolate;
+}
+
+.rt-brand-loader__glow {
+  position: absolute;
+  inset: -10px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 50% 50%,
+    var(--rt-color-accent-muted) 0%,
+    transparent 72%
+  );
+  opacity: 0.9;
+  animation: rt-brand-loader-pulse 1.9s ease-in-out infinite;
+}
+
+.rt-brand-loader__ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 3px solid var(--rt-color-border);
+  border-top-color: var(--rt-color-accent);
+  border-right-color: var(--rt-color-accent-hover);
+  animation: rt-brand-loader-spin 0.85s linear infinite;
+  box-shadow: var(--rt-shadow-xs);
+}
+
+.rt-brand-loader__ring--inner {
+  inset: 10px;
+  border-width: 2px;
+  border-top-color: transparent;
+  border-right-color: transparent;
+  border-bottom-color: var(--rt-color-border-strong);
+  border-left-color: var(--rt-color-accent);
+  opacity: 0.55;
+  animation-duration: 1.25s;
+  animation-direction: reverse;
+}
+
+.rt-brand-loader__logo {
+  position: relative;
+  z-index: 1;
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+  border-radius: 14px;
+  background: var(--rt-color-bg-elevated);
+  padding: 6px;
+  box-shadow: var(--rt-shadow-sm);
+  animation: rt-brand-loader-logo 1.9s ease-in-out infinite;
+}
+
+/* sizes */
+.rt-brand-loader--sm .rt-brand-loader__mark {
+  width: 72px;
+  height: 72px;
+}
+
+.rt-brand-loader--sm .rt-brand-loader__logo {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  padding: 5px;
+}
+
+.rt-brand-loader--lg .rt-brand-loader__mark {
+  width: 116px;
+  height: 116px;
+}
+
+.rt-brand-loader--lg .rt-brand-loader__logo {
+  width: 68px;
+  height: 68px;
+  border-radius: 16px;
+}
+
+/* ── Copy ──────────────────────────────────────────────────── */
+.rt-brand-loader__copy {
+  display: flex;
+  flex-direction: column;
+  gap: 0.28rem;
+}
+
+.rt-brand-loader__title {
+  margin: 0;
+  font-family: var(--rt-font-sans);
+  font-size: var(--rt-text-md);
+  font-weight: var(--rt-weight-semibold);
+  color: var(--rt-color-text);
+  letter-spacing: var(--rt-tracking-ui);
+  line-height: 1.35;
+}
+
+.rt-brand-loader__subtitle {
+  margin: 0;
+  font-family: var(--rt-font-sans);
+  font-size: var(--rt-text-sm);
+  font-weight: var(--rt-weight-medium);
+  color: var(--rt-color-text-secondary);
+  line-height: 1.45;
+}
+
+/* ── Shimmer bar ───────────────────────────────────────────── */
+.rt-brand-loader__shimmer {
+  width: 132px;
+  height: 4px;
+  border-radius: var(--rt-radius-pill);
+  background: var(--rt-color-border);
+  overflow: hidden;
+  position: relative;
+}
+
+.rt-brand-loader__shimmer-bar {
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--rt-color-bg-elevated) 18%,
+    var(--rt-color-accent) 50%,
+    var(--rt-color-bg-elevated) 82%,
+    transparent 100%
+  );
+  opacity: 0.95;
+  animation: rt-brand-loader-shimmer 1.15s ease-in-out infinite;
+}
+
+/* inline variant — more compact */
+.rt-brand-loader--inline .rt-brand-loader__shimmer {
+  width: 96px;
+  height: 3px;
+}
+
+.rt-brand-loader--inline .rt-brand-loader__title {
+  font-size: var(--rt-text-sm);
+}
+
+/* ── Keyframes ─────────────────────────────────────────────── */
+@keyframes rt-brand-loader-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes rt-brand-loader-shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes rt-brand-loader-pulse {
+  0%,
+  100% {
+    transform: scale(0.96);
+    opacity: 0.75;
+  }
+
+  50% {
+    transform: scale(1.04);
+    opacity: 1;
+  }
+}
+
+@keyframes rt-brand-loader-logo {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.03);
+  }
+}
+
+@keyframes rt-brand-loader-fade {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rt-brand-loader,
+  .rt-brand-loader__ring,
+  .rt-brand-loader__ring--inner,
+  .rt-brand-loader__glow,
+  .rt-brand-loader__logo,
+  .rt-brand-loader__shimmer-bar {
+    animation: none !important;
+  }
+
+  .rt-brand-loader__shimmer-bar {
+    transform: none;
+    opacity: 0.4;
+  }
+}

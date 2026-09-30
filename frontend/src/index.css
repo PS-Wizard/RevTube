@@ -1,0 +1,369 @@
+@import "./styles/design-tokens.css";
+@import "./styles/layout.css";
+@import "./components/evilcharts/evilcharts.css";
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@import "@fontsource-variable/inter";
+
+/*
+ * Safelist for Box/Flex/Stack/Grid `sx` output (components/ui/Box.tsx).
+ * parseSx builds these class names dynamically (variant prefixes, spacing
+ * scale), so content scanning never sees them — without this block,
+ * responsive `sx` maps silently render only their `xs` layout.
+ * Keep in sync with parseSx + SPACING_MAP.
+ */
+@source inline("{,sm:,md:,lg:,xl:}flex");
+@source inline("{,sm:,md:,lg:,xl:}inline-flex");
+@source inline("{,sm:,md:,lg:,xl:}grid");
+@source inline("{,sm:,md:,lg:,xl:}block");
+@source inline("{,sm:,md:,lg:,xl:}inline");
+@source inline("{,sm:,md:,lg:,xl:}hidden");
+@source inline("{,sm:,md:,lg:,xl:}flex-{row,col,row-reverse,col-reverse}");
+@source inline("{,sm:,md:,lg:,xl:}flex-{wrap,nowrap}");
+@source inline("{,sm:,md:,lg:,xl:}items-{start,end,center,baseline,stretch}");
+@source inline("{,sm:,md:,lg:,xl:}justify-{start,end,center,between,around,evenly}");
+@source inline("{,sm:,md:,lg:,xl:}self-{auto,start,end,center,stretch,baseline}");
+@source inline("{,sm:,md:,lg:,xl:}grid-cols-{1,2,3,4}");
+@source inline("{,sm:,md:,lg:,xl:}w-{full,auto,1/2}");
+@source inline("{,sm:,md:,lg:,xl:}shrink{,-0}");
+@source inline("{,sm:,md:,lg:,xl:}grow{,-0}");
+@source inline("{,sm:,md:,lg:,xl:}flex-{1,auto,none}");
+@source inline("{,sm:,md:,lg:,xl:}{p,px,py,pt,pb,pl,pr,m,mx,my,mt,mb,ml,mr,gap}-{0,0.5,1,1.5,2,2.5,3,3.5,4,5,6,7,8,10,12,14,16,18,20,auto}");
+@source inline("{,sm:,md:,lg:,xl:}gap-{x,y}-{0,0.5,1,1.5,2,2.5,3,3.5,4,5,6,7,8,10,12,14,16,18,20}");
+@source inline("{,sm:,md:,lg:,xl:}{relative,absolute,fixed,sticky,static}");
+@source inline("{,sm:,md:,lg:,xl:}overflow{,-x,-y}-{hidden,auto,scroll,visible}");
+@source inline("{,sm:,md:,lg:,xl:}{uppercase,lowercase,capitalize,normal-case}");
+@source inline("{,sm:,md:,lg:,xl:}whitespace-{nowrap,pre-wrap}");
+@source inline("{,sm:,md:,lg:,xl:}text-{left,center,right,justify}");
+@source inline("{,sm:,md:,lg:,xl:}cursor-{pointer,not-allowed,default}");
+@source inline("{,sm:,md:,lg:,xl:}select-none");
+@source inline("{,sm:,md:,lg:,xl:}pointer-events-none");
+@source inline("{lg:}w-[38%]");
+@source inline("{lg:}w-[62%]");
+
+@custom-variant dark (&:is(.dark *, [data-theme='dark'] *));
+
+/*
+ * Canonical breakpoints — single source of truth, mirrors styles/layout.css.
+ * Pages/layouts use Tailwind's sm/md/lg/xl; do NOT hardcode px breakpoints
+ * in per-page CSS. Design tokens (--rt-*) remain the source for color,
+ * spacing, radius, and type.
+ */
+@theme {
+  --breakpoint-xs: 30rem;
+  --breakpoint-sm: 40rem;
+  --breakpoint-md: 48rem;
+  --breakpoint-lg: 64rem;
+  --breakpoint-xl: 80rem;
+}
+
+@layer base {
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: var(--rt-font-sans);
+    animation-timeline: view();
+  }
+}
+
+body {
+  font-family: var(--rt-font-sans);
+  font-size: var(--rt-page-body-size);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+input,
+button,
+select,
+textarea {
+  font-family: inherit;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.cta-title {
+  font-family: var(--rt-font-sans);
+  letter-spacing: 0.02em;
+  margin: 0;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+/*
+ * Single app-wide heading size — headings match surrounding UI text instead
+ * of the browser-style 40/32/28px scale. Prominent titles opt in explicitly
+ * via shared components (CardTitle, Typography, PageShell) or scoped page
+ * rules. Do NOT re-add per-level px sizes here.
+ */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: var(--rt-text-lg);
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+/* ── App-wide slim creative scrollbars ────────────────────────────────
+   Floating pill thumb (transparent-border trick keeps it narrow), theme-aware
+   via design tokens, accent glow on hover. Firefox uses the thin/color pair;
+   Chromium uses the pseudo-element set below. Component-level rules
+   (sidebar, data tables) keep their own slimmer variants. */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in srgb, var(--rt-color-text-tertiary) 55%, transparent) transparent;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--rt-color-text-tertiary) 55%, transparent);
+  border-radius: var(--rt-radius-pill);
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--rt-color-accent);
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+::selection {
+  background: rgba(96, 165, 250, 0.3);
+  color: rgba(0, 0, 0, 0.95);
+}
+
+/* Keyboard focus ring -- visible only for keyboard nav, never for mouse */
+:focus-visible {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Design-system fields (Input/TextField/NativeSelect) paint their own
+   focus-within ring on the wrapper -- suppress the global ring on their inner
+   elements so focus never draws twice. Raw inputs/textareas/selects elsewhere
+   keep the global ring as their only focus indicator. */
+input[data-rt-input]:focus-visible,
+textarea[data-rt-input]:focus-visible,
+select.rt-select-native:focus-visible {
+  outline: none;
+}
+
+@theme inline {
+  --font-heading: var(--font-sans);
+  --font-sans: 'Inter Variable', sans-serif;
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-foreground: var(--foreground);
+  --color-background: var(--background);
+  --radius-sm: var(--rt-radius-sm);
+  --radius-md: var(--rt-radius-md);
+  --radius-lg: var(--rt-radius-lg);
+  --radius-xl: var(--rt-radius-xl);
+  --radius-pill: var(--rt-radius-pill);
+}
+
+
+
+:root {
+  --background: var(--rt-color-bg-app);
+  --foreground: var(--rt-color-text);
+  --card: var(--rt-color-bg-elevated);
+  --card-foreground: var(--rt-color-text);
+  --popover: var(--rt-popover-bg);
+  --popover-foreground: var(--rt-color-text);
+  --primary: var(--rt-color-btn-primary);
+  --primary-foreground: var(--rt-color-on-primary);
+  --secondary: var(--rt-color-bg-muted);
+  --secondary-foreground: var(--rt-color-text);
+  --muted: var(--rt-color-bg-muted);
+  --muted-foreground: var(--rt-color-text-secondary);
+  --accent: var(--rt-color-bg-subtle);
+  --accent-foreground: var(--rt-color-text);
+  --destructive: var(--rt-color-danger);
+  --destructive-foreground: var(--rt-color-on-primary);
+  --border: var(--rt-color-border);
+  --input: var(--rt-color-border-strong);
+  --ring: var(--rt-color-accent);
+  --chart-1: var(--rt-chart-views);
+  --chart-2: var(--rt-chart-watch-time);
+  --chart-3: var(--rt-chart-subs-gained);
+  --chart-4: var(--rt-chart-likes);
+  --chart-5: var(--rt-chart-comments);
+  --radius: var(--rt-radius-lg);
+  --sidebar: var(--rt-layout-rail-bg);
+  --sidebar-foreground: var(--rt-layout-rail-text);
+  --sidebar-primary: var(--rt-color-accent);
+  --sidebar-primary-foreground: var(--rt-color-on-primary);
+  --sidebar-accent: var(--rt-layout-rail-hover);
+  --sidebar-accent-foreground: var(--rt-layout-rail-text-strong);
+  --sidebar-border: var(--rt-layout-rail-border);
+  --sidebar-ring: var(--rt-color-accent);
+}
+
+.dark,
+[data-theme='dark'] {
+  --background: var(--rt-color-bg-app);
+  --foreground: var(--rt-color-text);
+  --card: var(--rt-color-bg-elevated);
+  --card-foreground: var(--rt-color-text);
+  --popover: var(--rt-popover-bg);
+  --popover-foreground: var(--rt-color-text);
+  --primary: var(--rt-color-btn-primary);
+  --primary-foreground: var(--rt-color-on-primary);
+  --secondary: var(--rt-color-bg-muted);
+  --secondary-foreground: var(--rt-color-text);
+  --muted: var(--rt-color-bg-muted);
+  --muted-foreground: var(--rt-color-text-secondary);
+  --accent: var(--rt-color-bg-subtle);
+  --accent-foreground: var(--rt-color-text);
+  --destructive: var(--rt-color-danger);
+  --destructive-foreground: var(--rt-color-on-primary);
+  --border: var(--rt-color-border);
+  --input: var(--rt-color-border-strong);
+  --ring: var(--rt-color-accent);
+  --chart-1: var(--rt-chart-views);
+  --chart-2: var(--rt-chart-watch-time);
+  --chart-3: var(--rt-chart-subs-gained);
+  --chart-4: var(--rt-chart-likes);
+  --chart-5: var(--rt-chart-comments);
+  --sidebar: var(--rt-layout-rail-bg);
+  --sidebar-foreground: var(--rt-layout-rail-text);
+  --sidebar-primary: var(--rt-color-accent);
+  --sidebar-primary-foreground: var(--rt-color-on-primary);
+  --sidebar-accent: var(--rt-layout-rail-hover);
+  --sidebar-accent-foreground: var(--rt-layout-rail-text-strong);
+  --sidebar-border: var(--rt-layout-rail-border);
+  --sidebar-ring: var(--rt-color-accent);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+
+  html {
+    @apply font-sans;
+  }
+}
+
+/* ── README prose styles (scoped to avoid leaking into app) ─────────────── */
+.readme-prose h1, .readme-prose h2, .readme-prose h3,
+.readme-prose h4, .readme-prose h5, .readme-prose h6 {
+  color: var(--rt-color-text);
+  font-weight: var(--rt-weight-bold);
+  margin-top: var(--rt-space-6);
+  margin-bottom: var(--rt-space-3);
+  line-height: 1.25;
+}
+.readme-prose h1 { font-size: 1.75rem; border-bottom: 1px solid var(--rt-color-border); padding-bottom: var(--rt-space-2); }
+.readme-prose h2 { font-size: 1.4rem; border-bottom: 1px solid var(--rt-color-border); padding-bottom: var(--rt-space-2); }
+.readme-prose h3 { font-size: 1.2rem; }
+.readme-prose p { margin: 0 0 var(--rt-space-4); color: var(--rt-color-text); }
+.readme-prose a { color: var(--rt-color-accent); text-decoration: none; font-weight: var(--rt-weight-medium); }
+.readme-prose a:hover { text-decoration: underline; }
+.readme-prose ul, .readme-prose ol { margin-bottom: var(--rt-space-4); padding-left: 1.75rem; }
+.readme-prose ul { list-style-type: disc; }
+.readme-prose ol { list-style-type: decimal; }
+.readme-prose li { margin-bottom: var(--rt-space-2); }
+.readme-prose code {
+  font-family: monospace;
+  background-color: var(--rt-color-bg-muted);
+  color: var(--rt-color-danger);
+  padding: 2px 5px;
+  border-radius: var(--rt-radius-sm);
+  font-size: 0.9em;
+}
+.readme-prose pre {
+  background-color: var(--rt-color-bg-subtle);
+  border: 1px solid var(--rt-color-border);
+  padding: var(--rt-space-4);
+  border-radius: var(--rt-radius-md);
+  overflow-x: auto;
+  margin-bottom: var(--rt-space-4);
+}
+.readme-prose pre code { background: transparent; color: inherit; padding: 0; border-radius: 0; font-size: var(--rt-text-sm); }
+.readme-prose blockquote {
+  border-left: 4px solid var(--rt-color-border-strong);
+  padding-left: var(--rt-space-4);
+  margin: 0 0 var(--rt-space-4);
+  color: var(--rt-color-text-secondary);
+  font-style: italic;
+}
+.readme-prose table { width: 100%; border-collapse: collapse; margin-bottom: var(--rt-space-4); font-size: var(--rt-text-sm); }
+.readme-prose th, .readme-prose td { border: 1px solid var(--rt-color-border); padding: var(--rt-space-3); text-align: left; }
+.readme-prose th { background-color: var(--rt-color-bg-muted); font-weight: var(--rt-weight-semibold); color: var(--rt-color-text); }
+.readme-prose tr:nth-child(even) { background-color: var(--rt-color-bg-subtle); }

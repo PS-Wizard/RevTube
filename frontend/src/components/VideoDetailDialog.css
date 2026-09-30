@@ -1,0 +1,506 @@
+/* ── Video Detail Dialog -- RevTube Design Tokens ───────────────────── */
+
+/* Paper override for desktop width (up to 1180px) */
+.vdd-paper {
+  max-width: 1180px !important;
+  width: 94vw !important;
+  border-radius: var(--rt-radius-xl) !important;
+  background: var(--rt-color-bg-elevated) !important;
+  border: 1px solid var(--rt-color-border) !important;
+  box-shadow: var(--rt-shadow-md) !important;
+  overflow: hidden !important;
+}
+
+/* Header */
+.vdd-header {
+  display: flex !important;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--rt-space-4);
+  padding: var(--rt-space-4) var(--rt-space-6) !important;
+  background: var(--rt-color-bg-subtle);
+  border-bottom: 1px solid var(--rt-color-border);
+}
+
+.vdd-header-left {
+  display: flex;
+  align-items: center;
+  gap: var(--rt-space-3);
+  flex-wrap: wrap;
+}
+
+.vdd-title-text {
+  font-family: var(--rt-font-sans);
+  font-size: var(--rt-text-lg);
+  font-weight: var(--rt-weight-semibold);
+  color: var(--rt-color-text);
+}
+
+.vdd-header-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--rt-space-3);
+}
+
+.vdd-youtube-btn {
+  text-decoration: none;
+}
+
+/* Type badge */
+.vdd-type-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 10px;
+  border-radius: var(--rt-radius-pill);
+  font-size: var(--rt-text-xs);
+  font-weight: var(--rt-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.vdd-type-badge.short {
+  background: var(--rt-color-warning-surface);
+  color: var(--rt-color-warning);
+  border: 1px solid var(--rt-color-warning);
+}
+
+.vdd-type-badge.video {
+  background: var(--rt-color-accent-muted);
+  color: var(--rt-color-accent);
+  border: 1px solid var(--rt-color-accent);
+}
+
+/* Content & Grid layout */
+.vdd-content {
+  padding: var(--rt-space-5) var(--rt-space-6) !important;
+  background: var(--rt-color-bg-elevated);
+  color: var(--rt-color-text);
+  max-height: calc(88vh - 70px);
+  /* The paper clips overflow for rounded corners, so the body itself scrolls. */
+  overflow-y: auto;
+  min-height: 0;
+  overscroll-behavior: contain;
+}
+
+.vdd-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--rt-space-6);
+}
+
+@media (min-width: 960px) {
+  .vdd-grid {
+    grid-template-columns: 1.35fr 1fr;
+    gap: var(--rt-space-6);
+    align-items: start;
+  }
+}
+
+/* Main column */
+.vdd-main-column {
+  display: flex;
+  flex-direction: column;
+  gap: var(--rt-space-5);
+  min-width: 0;
+}
+
+/* Embed container */
+.vdd-embed-container {
+  width: 100%;
+  border-radius: var(--rt-radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--rt-color-border);
+  box-shadow: var(--rt-shadow-sm);
+  background: var(--rt-color-bg-app);
+}
+
+.vdd-embed {
+  position: relative;
+  width: 100%;
+  padding-top: 56.25%; /* 16:9 aspect ratio */
+}
+
+.vdd-embed iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* Title & channel block */
+.vdd-title-block {
+  display: flex;
+  flex-direction: column;
+  gap: var(--rt-space-2);
+}
+
+.vdd-video-title {
+  font-size: var(--rt-text-xl);
+  font-weight: var(--rt-weight-bold);
+  line-height: 1.35;
+  margin: 0;
+  color: var(--rt-color-text);
+}
+
+.vdd-video-title a {
+  color: inherit;
+  text-decoration: none;
+  transition: color var(--rt-transition-fast);
+}
+
+.vdd-video-title a:hover {
+  color: var(--rt-color-accent);
+}
+
+
+
+
+/* Cards */
+.vdd-card {
+  background: var(--rt-color-bg-subtle);
+  border: 1px solid var(--rt-color-border);
+  border-radius: var(--rt-radius-lg);
+  padding: var(--rt-space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--rt-space-3);
+}
+
+.vdd-card-header {
+  display: flex;
+  align-items: center;
+  gap: var(--rt-space-2);
+}
+
+.vdd-card-icon {
+  color: var(--rt-color-text-tertiary);
+}
+
+.vdd-card-title {
+  font-size: var(--rt-text-sm);
+  font-weight: var(--rt-weight-semibold);
+  margin: 0;
+  color: var(--rt-color-text);
+}
+
+/* Description card */
+.vdd-description {
+  font-size: var(--rt-text-sm);
+  line-height: 1.6;
+  color: var(--rt-color-text-secondary);
+  margin: 0;
+  white-space: pre-wrap;
+  max-height: 110px;
+  overflow: hidden;
+  transition: max-height var(--rt-transition-base);
+}
+
+.vdd-description.is-expanded {
+  max-height: 600px;
+  overflow-y: auto;
+}
+
+
+.vdd-toggle-desc-btn:hover {
+  text-decoration: underline;
+}
+
+/* Tags card */
+.vdd-tags-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--rt-space-2);
+}
+
+.vdd-tag {
+  font-size: var(--rt-text-xs);
+  font-weight: var(--rt-weight-medium);
+  padding: 3px 10px;
+  border-radius: var(--rt-radius-pill);
+  background: var(--rt-color-bg-elevated);
+  color: var(--rt-color-text-secondary);
+  border: 1px solid var(--rt-color-border);
+}
+
+/* Side column */
+.vdd-side-column {
+  display: flex;
+  flex-direction: column;
+  gap: var(--rt-space-5);
+  min-width: 0;
+}
+
+.vdd-section-heading {
+  font-size: var(--rt-text-xs);
+  font-weight: var(--rt-weight-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--rt-color-text-tertiary);
+  margin-bottom: calc(-1 * var(--rt-space-2));
+}
+
+/* Metrics grid */
+.vdd-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: var(--rt-space-3);
+}
+
+.vdd-kpi-card {
+  background: var(--rt-color-bg-subtle);
+  border: 1px solid var(--rt-color-border);
+  border-radius: var(--rt-radius-lg);
+  padding: var(--rt-space-3) var(--rt-space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--rt-space-2);
+  transition: border-color var(--rt-transition-fast), box-shadow var(--rt-transition-fast);
+}
+
+.vdd-kpi-card:hover {
+  border-color: var(--rt-color-border-strong);
+  box-shadow: var(--rt-shadow-xs);
+}
+
+.vdd-kpi-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.vdd-kpi-label {
+  font-size: var(--rt-text-xs);
+  font-weight: var(--rt-weight-medium);
+  color: var(--rt-color-text-tertiary);
+}
+
+.vdd-kpi-icon-wrapper {
+  width: 24px;
+  height: 24px;
+  border-radius: var(--rt-radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--rt-color-bg-elevated);
+  color: var(--rt-color-text-secondary);
+  border: 1px solid var(--rt-color-border);
+}
+
+.vdd-kpi-icon-wrapper.views {
+  color: var(--rt-color-accent);
+}
+
+.vdd-kpi-icon-wrapper.likes {
+  color: var(--rt-color-danger);
+}
+
+.vdd-kpi-icon-wrapper.comments {
+  color: var(--rt-color-info);
+}
+
+.vdd-kpi-icon-wrapper.duration {
+  color: var(--rt-color-warning);
+}
+
+.vdd-kpi-icon-wrapper.published {
+  color: var(--rt-color-success);
+}
+
+.vdd-kpi-value {
+  font-size: var(--rt-text-lg);
+  font-weight: var(--rt-weight-bold);
+  color: var(--rt-color-text);
+}
+
+/* Quick Meta Card */
+.vdd-meta-card {
+  gap: var(--rt-space-3);
+}
+
+.vdd-meta-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--rt-space-2);
+}
+
+.vdd-meta-label {
+  font-size: var(--rt-text-xs);
+  font-weight: var(--rt-weight-semibold);
+  color: var(--rt-color-text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.vdd-id-badge-wrap {
+  display: flex;
+  align-items: center;
+  gap: var(--rt-space-2);
+}
+
+.vdd-video-id {
+  font-family: monospace;
+  font-size: var(--rt-text-xs);
+  background: var(--rt-color-bg-elevated);
+  padding: 3px 8px;
+  border-radius: var(--rt-radius-sm);
+  border: 1px solid var(--rt-color-border);
+  color: var(--rt-color-text);
+}
+
+
+.vdd-copy-btn:hover {
+  border-color: var(--rt-color-accent);
+  color: var(--rt-color-accent);
+}
+
+.vdd-copy-btn .copied {
+  color: var(--rt-color-success);
+}
+
+
+/* Captions Card */
+.vdd-captions-card {
+  gap: var(--rt-space-3);
+}
+
+.vdd-captions-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--rt-space-2);
+}
+
+.vdd-captions-title {
+  display: flex;
+  align-items: center;
+  gap: var(--rt-space-2);
+  font-size: var(--rt-text-sm);
+  font-weight: var(--rt-weight-semibold);
+  color: var(--rt-color-text);
+}
+
+.vdd-captions-loading {
+  display: flex;
+  align-items: center;
+  gap: var(--rt-space-2);
+  font-size: var(--rt-text-xs);
+  color: var(--rt-color-text-secondary);
+  padding: var(--rt-space-2) 0;
+}
+
+.vdd-captions-error {
+  font-size: var(--rt-text-xs);
+  color: var(--rt-color-danger);
+  margin: 0;
+}
+
+.vdd-captions-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--rt-space-3);
+}
+
+.vdd-captions-search-box {
+  display: flex;
+  align-items: center;
+  gap: var(--rt-space-2);
+  background: var(--rt-color-bg-elevated);
+  border: 1px solid var(--rt-color-border-strong);
+  border-radius: var(--rt-radius-md);
+  padding: 4px 10px;
+}
+
+.vdd-captions-search-box .search-icon {
+  color: var(--rt-color-text-tertiary);
+  flex-shrink: 0;
+}
+
+.vdd-captions-search-box input {
+  border: none;
+  background: transparent;
+  font-family: var(--rt-font-sans);
+  font-size: var(--rt-text-xs);
+  width: 100%;
+  outline: none;
+  color: var(--rt-color-text);
+}
+
+.vdd-captions-search-box input::placeholder {
+  color: var(--rt-color-text-tertiary);
+}
+
+.clear-search-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--rt-color-text-tertiary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.clear-search-btn:hover {
+  color: var(--rt-color-text);
+}
+
+.vdd-captions-list {
+  max-height: 260px;
+  overflow-y: auto;
+  border: 1px solid var(--rt-color-border);
+  border-radius: var(--rt-radius-md);
+  background: var(--rt-color-bg-elevated);
+}
+
+.vdd-caption-line {
+  display: flex;
+  gap: var(--rt-space-3);
+  padding: var(--rt-space-2) var(--rt-space-3);
+  font-size: var(--rt-text-xs);
+  line-height: 1.5;
+  border-bottom: 1px solid var(--rt-color-border);
+}
+
+.vdd-caption-line:last-child {
+  border-bottom: none;
+}
+
+.vdd-caption-time {
+  flex-shrink: 0;
+  font-family: monospace;
+  font-size: 0.725rem;
+  color: var(--rt-color-text-tertiary);
+  min-width: 3.2rem;
+  padding-top: 1px;
+}
+
+.vdd-caption-text {
+  word-break: break-word;
+  color: var(--rt-color-text);
+}
+
+.vdd-captions-empty {
+  font-size: var(--rt-text-xs);
+  color: var(--rt-color-text-tertiary);
+  padding: var(--rt-space-4);
+  text-align: center;
+}
+
+/* Spinner */
+.spinner-small {
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--rt-color-border-strong);
+  border-top-color: var(--rt-color-accent);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

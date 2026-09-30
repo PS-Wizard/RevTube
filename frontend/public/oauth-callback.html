@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Don't leak the one-time ?code= to any asset fetch via Referer -->
+    <meta name="referrer" content="no-referrer">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Connecting YouTube Channel…</title>
+    <style>
+        :root {
+            color-scheme: dark;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 1.5rem;
+            background: radial-gradient(120% 100% at 50% 0%, #1c1c22 0%, #0f0f0f 60%);
+            color: #f4f4f5;
+        }
+
+        .message {
+            text-align: center;
+            padding: 2.5rem 2rem 2rem;
+            width: 100%;
+            max-width: 380px;
+            background: #17171c;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            box-shadow: 0 24px 64px rgba(0, 0, 0, 0.5);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 1.5rem;
+        }
+
+        .brand img {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+        }
+
+        .brand span {
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: -0.2px;
+            color: #fafafa;
+        }
+
+        .brand span em {
+            font-style: normal;
+            color: #ff0033;
+        }
+
+        .success, .error, .working {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 1rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            line-height: 1;
+        }
+
+        .success {
+            background: rgba(16, 185, 129, 0.15);
+            color: #10b981;
+            border: 1px solid rgba(16, 185, 129, 0.4);
+        }
+
+        .error {
+            background: rgba(239, 68, 68, 0.12);
+            color: #ef4444;
+            border: 1px solid rgba(239, 68, 68, 0.4);
+        }
+
+        .working {
+            border: 3px solid rgba(255, 255, 255, 0.15);
+            border-top-color: #ff0033;
+            animation: oauth-spin 0.9s linear infinite;
+        }
+
+        @keyframes oauth-spin {
+            to { transform: rotate(360deg); }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .working { animation: none; }
+        }
+
+        .message h2 {
+            margin: 0 0 0.5rem;
+            font-size: 1.125rem;
+            font-weight: 700;
+        }
+
+        .message p {
+            margin: 0;
+            font-size: 0.875rem;
+            line-height: 1.55;
+            color: rgba(255, 255, 255, 0.65);
+            overflow-wrap: anywhere;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="message">
+        <div class="brand">
+            <img src="/logo.png" alt="TubeKeter" onerror="this.style.display='none'">
+            <span>TubeKeter <em>Analytics</em></span>
+        </div>
+        <div class="working"></div>
+        <h2>Connecting your channel…</h2>
+        <p>Talking to Google — you can close this window now.</p>
+    </div>
+
+    <script>
+        console.log('=== OAuth Callback Loaded ===');
+        // NOTE: never log the full URL — it carries the one-time authorization code
+        console.log('Path:', window.location.pathname);
+        console.log('Has opener?', !!window.opener);
+        console.log('Origin:', window.location.origin);
+
+        // Extract authorization code from URL query params
+        const params = new URLSearchParams(window.location.search);
+        const code = params.get('code');
+        const error = params.get('error');
+        const iss = params.get('iss');
+        const state = params.get('state') || '';
+
+        console.log('Authorization Code:', code ? 'YES (length: ' + code.length + ')' : 'NO');
+        console.log('Error parameter:', error || 'None');
+
+        /**
+         * Hand the result back to the app window that opened the popup.
+         * Three independent channels (whichever fires first wins — the opener
+         * de-duplicates via isResolved):
+         *  1. window.opener.postMessage (fast path, same-origin popups)
+         *  2. localStorage key `yt_oauth_result` (polled by the opener every 300ms;
+         *     also survives COOP / PWA standalone where opener is null)
+         *  3. BroadcastChannel `yt_oauth` + `storage` event (instant cross-tab,
+         *     no polling delay)
+         */
+        const storageKey = 'yt_oauth_result';
+        // Mix-up defense: Google always sets iss on the redirect; anything else
+        // means the redirect did not come from Google — refuse to hand off.
+        const issOk = !iss || iss === 'https://accounts.google.com';
+        const payload = !issOk
+            ? null
+            : error
+                ? { type: 'YOUTUBE_OAUTH_ERROR', error: error, state: state, timestamp: Date.now() }
+                : code
+                    ? { type: 'YOUTUBE_OAUTH_SUCCESS', code: code, state: state, timestamp: Date.now() }
+                    : null;
+
+        function showStatus(ok, title, detail) {
+            // DOM built with textContent — the error/detail strings come from URL
+            // params (attacker-controllable) and must never hit innerHTML (XSS).
+            const box = document.createElement('div');
+            box.className = 'message';
+            const brand = document.createElement('div');
+            brand.className = 'brand';
+            const logo = document.createElement('img');
+            logo.src = '/logo.png';
+            logo.alt = 'TubeKeter';
+            logo.onerror = function() { logo.style.display = 'none'; };
+            const name = document.createElement('span');
+            name.textContent = 'TubeKeter ';
+            const accent = document.createElement('em');
+            accent.textContent = 'Analytics';
+            name.appendChild(accent);
+            brand.append(logo, name);
+            const icon = document.createElement('div');
+            icon.className = ok ? 'success' : 'error';
+            icon.textContent = ok ? '✓' : '✗';
+            const h2 = document.createElement('h2');
+            h2.textContent = title;
+            const p = document.createElement('p');
+            p.textContent = detail;
+            const hint = document.createElement('p');
+            hint.style.marginTop = '1rem';
+            hint.style.fontSize = '12px';
+            hint.style.color = '#6b7280';
+            hint.textContent = 'You can close this window and return to the app.';
+            box.append(brand, icon, h2, p, hint);
+            document.body.replaceChildren(box);
+        }
+
+        if (!payload) {
+            console.error(issOk ? '❌ OAuth callback has neither code nor error param' : '❌ OAuth callback iss mismatch: ' + iss);
+            showStatus(
+                false,
+                'Authorization Failed',
+                issOk
+                    ? 'No authorization code was returned. Please close this window and try again.'
+                    : 'The response did not come from Google (iss mismatch). Close this window and try again.'
+            );
+            // No usable result, but a full-page redirect flow must still get back
+            // to the app instead of stranding the user here.
+            returnToAppIfMainWindow();
+        } else {
+            if (payload.type === 'YOUTUBE_OAUTH_ERROR') {
+                console.error(' OAuth Error:', payload.error);
+            } else {
+                console.log(' Authorization code received, storing result...');
+            }
+            try {
+                localStorage.setItem(storageKey, JSON.stringify(payload));
+                console.log(' Result stored in localStorage');
+            } catch (e) { console.error('localStorage write failed:', e); }
+
+            try {
+                const bc = new BroadcastChannel('yt_oauth');
+                bc.postMessage(payload);
+                bc.close();
+                console.log(' Result broadcast via BroadcastChannel');
+            } catch (e) { console.log('BroadcastChannel unavailable:', e); }
+
+            if (window.opener) {
+                try {
+                    window.opener.postMessage(payload, window.location.origin);
+                    console.log(' Result posted via postMessage');
+                } catch (e) {
+                    console.log('postMessage failed (expected with COOP):', e);
+                }
+            } else {
+                console.log('No window.opener — main window will pick up from localStorage');
+            }
+
+            showStatus(
+                payload.type === 'YOUTUBE_OAUTH_SUCCESS',
+                payload.type === 'YOUTUBE_OAUTH_SUCCESS' ? 'Authorization Successful' : 'Authorization Failed',
+                payload.type === 'YOUTUBE_OAUTH_SUCCESS'
+                    ? 'Channel connection is completing in the app — you can close this window now.'
+                    : 'Error: ' + payload.error
+            );
+
+            // Full-page redirect flow (installed mobile PWA / blocked popup): THIS
+            // tab is the app itself, so hand back to the app — the AuthContext
+            // resume effect consumes the stored result and finishes connecting.
+            // Popup flows have window.opener and keep the close behavior below.
+            returnToAppIfMainWindow(payload.type === 'YOUTUBE_OAUTH_SUCCESS');
+        }
+
+        /**
+         * When this page is NOT a script-opened popup (no window.opener), it is
+         * the app window that went to Google and back. Navigate back to where the
+         * connect started (stored on the pending flow) so the app can resume.
+         * Does nothing for real popups — those use tryClose() below.
+         */
+        function returnToAppIfMainWindow(ok) {
+            if (window.opener) return;
+            var returnUrl = '/';
+            try {
+                var flowRaw = localStorage.getItem('yt_oauth_flow');
+                if (flowRaw) {
+                    var flow = JSON.parse(flowRaw);
+                    if (flow && typeof flow.returnUrl === 'string' && flow.returnUrl.charAt(0) === '/') {
+                        returnUrl = flow.returnUrl;
+                    }
+                }
+            } catch (e) { console.log('Could not read pending flow returnUrl:', e); }
+            showStatus(
+                ok !== false,
+                ok === false ? 'Authorization Failed' : 'Authorization Successful',
+                'Returning to the app to finish connecting…'
+            );
+            console.log('No opener — returning to app at', returnUrl);
+            setTimeout(function() { window.location.replace(returnUrl); }, 800);
+        }
+
+        // Auto-close attempts for script-opened popups only. Full-page redirect
+        // flows never reach here still on this page — returnToAppIfMainWindow()
+        // above already navigated them back to the app.
+        // NOTE: popups intentionally do NOT navigate back to "/" anymore: that
+        // used to turn the popup into a second copy of the app which then raced
+        // the real app window for the pending localStorage result.
+        function tryClose(attemptsLeft) {
+            if (window.closed) return;
+            window.close();
+            if (attemptsLeft > 0) {
+                setTimeout(function() { tryClose(attemptsLeft - 1); }, 1000);
+            }
+        }
+        setTimeout(function() { tryClose(3); }, 1500);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,16 @@
+node_modules
+npm-debug.log
+pnpm-debug.log
+dist
+.git
+.gitignore
+.env
+.env.*
+*.md
+tests/
+coverage/
+.vscode/
+.idea/
+docker-compose*
+Dockerfile
+public/mockServiceWorker.js

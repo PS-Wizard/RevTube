@@ -1,0 +1,387 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   RevTube Intelligence Suite -- Video Audit Page CSS
+   Spacious, modern, 100% design-token compliant (no raw hex colors)
+   ───────────────────────────────────────────────────────────────────────────── */
+
+/* Section Header Bar */
+.va-section-header-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--rt-space-4);
+  padding-bottom: var(--rt-space-2);
+}
+
+.va-section-heading {
+  font-size: var(--rt-text-sm);
+  font-weight: var(--rt-weight-bold);
+  color: var(--rt-color-text);
+  letter-spacing: 0.02em;
+}
+
+/* Input Form Card */
+.va-input-card {
+  padding: var(--rt-space-6);
+  margin-bottom: var(--rt-space-6);
+  background-color: var(--rt-color-bg-elevated);
+  border: 1px solid var(--rt-color-border);
+  border-radius: var(--rt-radius-lg);
+  box-shadow: var(--rt-shadow-xs);
+}
+
+/* Shared form hint (small variant) -- mirrors .rtis-form-hint--small */
+.va-input-card .rtis-form-hint--small {
+  font-size: var(--rt-text-2xs);
+  line-height: 1.4;
+}
+
+
+.va-error-text {
+  margin-top: var(--rt-space-3);
+  color: var(--rt-color-danger);
+  font-size: var(--rt-text-xs);
+  font-weight: var(--rt-weight-medium);
+  padding: var(--rt-space-2) var(--rt-space-3);
+  background-color: var(--rt-color-danger-surface);
+  border-radius: var(--rt-radius-sm);
+}
+
+/* ── Overview Banner (Spacious & Clean, no nested box clutter) ────────── */
+.va-overview-banner {
+  background-color: var(--rt-color-bg-elevated);
+  border: 1px solid var(--rt-color-border);
+  border-radius: var(--rt-radius-lg);
+  box-shadow: var(--rt-shadow-xs);
+  padding: var(--rt-space-6);
+  margin-bottom: var(--rt-space-6);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--rt-space-6);
+  flex-wrap: wrap;
+}
+
+.va-overview-score-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--rt-space-1);
+  min-width: 180px;
+}
+
+.va-score-hero-val {
+  font-size: 3rem;
+  font-weight: var(--rt-weight-bold);
+  line-height: 1;
+}
+
+.va-score-hero-max {
+  font-size: var(--rt-text-sm);
+  color: var(--rt-color-text-tertiary);
+  font-weight: var(--rt-weight-medium);
+}
+
+.va-status-tag {
+  font-size: var(--rt-text-2xs);
+  font-weight: var(--rt-weight-bold);
+  padding: var(--rt-space-1) var(--rt-space-3);
+  border-radius: var(--rt-radius-pill);
+}
+
+.va-meta-text {
+  font-size: var(--rt-text-xs);
+  color: var(--rt-color-text-tertiary);
+}
+
+.va-uplift-hint {
+  display: flex;
+  align-items: center;
+  gap: var(--rt-space-1);
+  font-size: var(--rt-text-2xs);
+  color: var(--rt-color-text-secondary);
+  margin-top: var(--rt-space-1);
+}
+
+.va-overview-cats {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--rt-space-5);
+  min-width: 280px;
+}
+
+.va-cat-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.va-cat-label {
+  font-size: var(--rt-text-xs);
+  font-weight: var(--rt-weight-semibold);
+  color: var(--rt-color-text);
+}
+
+.va-cat-val {
+  font-size: var(--rt-text-xs);
+  font-weight: var(--rt-weight-bold);
+}
+
+.va-overview-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--rt-space-2);
+  flex-shrink: 0;
+}
+
+/* ── Matrix Table Wrapper -- overflow-x scrollable so resizable columns can
+   exceed the container width instead of being clipped ─────────────────── */
+.va-table-wrapper {
+  background-color: var(--rt-color-bg-elevated);
+  border: 1px solid var(--rt-color-border);
+  border-radius: var(--rt-radius-lg);
+  box-shadow: var(--rt-shadow-xs);
+  overflow-x: auto;
+  overflow-y: hidden;
+  margin-bottom: var(--rt-space-6);
+}
+
+/* ── Filter Toolbar ────────────────────────────────────────────────────── */
+.va-filter-toolbar {
+  display: flex;
+  align-items: center;
+  gap: var(--rt-space-3);
+  margin-bottom: var(--rt-space-4);
+  flex-wrap: wrap;
+}
+
+.va-filter-chips {
+  display: flex;
+  align-items: center;
+  gap: var(--rt-space-2);
+  flex-wrap: wrap;
+}
+
+.va-filter-chip {
+  font-size: var(--rt-text-xs);
+  font-weight: var(--rt-weight-semibold);
+  padding: var(--rt-space-1) var(--rt-space-3);
+  border-radius: var(--rt-radius-pill);
+  border: 1px solid var(--rt-color-border);
+  background-color: var(--rt-color-bg-elevated);
+  color: var(--rt-color-text-secondary);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  user-select: none;
+}
+
+.va-filter-chip:hover {
+  background-color: var(--rt-color-bg-highlight);
+  color: var(--rt-color-text);
+  border-color: var(--rt-color-border-strong);
+}
+
+.va-filter-chip.active {
+  background-color: var(--rt-color-accent);
+  color: var(--rt-color-on-primary);
+  border-color: var(--rt-color-accent);
+}
+
+
+/* ── Video Accordion Items ─────────────────────────────────────────────── */
+.va-video-accordion {
+  margin-bottom: var(--rt-space-4) !important;
+  border-radius: var(--rt-radius-lg) !important;
+  border: 1px solid var(--rt-color-border);
+  background-color: var(--rt-color-bg-elevated) !important;
+  box-shadow: var(--rt-shadow-xs) !important;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.va-video-accordion:before {
+  display: none !important;
+}
+
+.va-video-accordion:hover {
+  border-color: var(--rt-color-border-strong);
+}
+
+.va-video-accordion.Mui-expanded {
+  border-color: var(--rt-color-accent);
+  box-shadow: var(--rt-shadow-sm) !important;
+}
+
+/* ── Flat & Spacious Detailed Analysis Elements ────────────────────────── */
+.va-flat-category-block {
+  display: flex;
+  flex-direction: column;
+  gap: var(--rt-space-3);
+}
+
+.va-flat-category-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: var(--rt-space-2);
+  border-bottom: 1px solid var(--rt-color-border);
+}
+
+.va-flat-category-title {
+  font-size: var(--rt-text-sm);
+  font-weight: var(--rt-weight-bold);
+  color: var(--rt-color-text);
+  letter-spacing: 0.02em;
+}
+
+.va-flat-elements-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: var(--rt-space-5);
+}
+
+.va-flat-element-row {
+  display: flex;
+  flex-direction: column;
+  padding: var(--rt-space-3) var(--rt-space-4);
+  border-radius: var(--rt-radius-md);
+  background-color: var(--rt-color-bg-subtle);
+}
+
+.va-flat-element-name {
+  font-size: var(--rt-text-xs);
+  font-weight: var(--rt-weight-bold);
+  color: var(--rt-color-text);
+}
+
+.va-flat-element-score {
+  font-size: var(--rt-text-xs);
+  font-weight: var(--rt-weight-bold);
+}
+
+.va-flat-element-max {
+  font-size: var(--rt-text-2xs);
+  color: var(--rt-color-text-tertiary);
+  font-weight: normal;
+}
+
+/* Criteria List (Clean, un-boxed rows) */
+.va-flat-criteria-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--rt-space-1);
+  margin-bottom: var(--rt-space-2);
+}
+
+.va-flat-criterion-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--rt-space-2);
+  padding: 2px 0;
+  font-size: var(--rt-text-2xs);
+}
+
+.va-flat-criterion-name {
+  color: var(--rt-color-text);
+  font-weight: var(--rt-weight-medium);
+}
+
+.va-flat-criterion-note {
+  color: var(--rt-color-text-tertiary);
+  font-size: var(--rt-text-2xs);
+}
+
+.va-flat-criterion-score {
+  font-weight: var(--rt-weight-semibold);
+  flex-shrink: 0;
+}
+
+/* Recommendation & Suggestion Block */
+.va-flat-reco {
+  margin-top: var(--rt-space-2);
+  padding: var(--rt-space-3);
+  background-color: var(--rt-color-bg-elevated);
+  border-left: 3px solid var(--rt-color-accent);
+  border-radius: var(--rt-radius-sm);
+  display: flex;
+  flex-direction: column;
+}
+
+.va-flat-reco-title {
+  font-size: var(--rt-text-2xs);
+  font-weight: var(--rt-weight-bold);
+  color: var(--rt-color-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.va-uplift-pill {
+  font-size: var(--rt-text-2xs);
+  font-weight: var(--rt-weight-bold);
+  color: var(--rt-color-accent);
+  background-color: var(--rt-color-accent-muted, var(--rt-color-bg-highlight));
+  padding: 1px var(--rt-space-2);
+  border-radius: var(--rt-radius-pill);
+}
+
+.va-flat-reco-why {
+  margin-top: var(--rt-space-2);
+  font-size: var(--rt-text-2xs);
+  color: var(--rt-color-text-tertiary);
+  display: flex;
+  align-items: flex-start;
+  gap: var(--rt-space-1);
+  line-height: 1.35;
+}
+
+/* ── Advanced Settings section (shared Thumbnail/Playlist Optimizer pattern) ── */
+/* Always-visible bordered wrapper; optional settings collapse inside it. */
+.va-settings-section {
+  margin-top: var(--rt-space-4);
+  padding: var(--rt-space-4);
+  background: var(--rt-color-bg-subtle);
+  border: 1px solid var(--rt-color-border);
+  border-radius: var(--rt-radius-lg);
+}
+
+.va-settings-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--rt-space-3);
+  flex-wrap: wrap;
+}
+
+.va-settings-section-title {
+  display: flex;
+  align-items: center;
+  gap: var(--rt-space-2);
+  font-size: var(--rt-text-sm);
+  font-weight: var(--rt-weight-bold);
+  color: var(--rt-color-text);
+}
+
+.va-settings-section-icon {
+  color: var(--rt-color-accent);
+}
+
+.va-settings-section-optional {
+  font-size: var(--rt-text-sm);
+  font-weight: var(--rt-weight-medium);
+  color: var(--rt-color-text-tertiary);
+}
+
+.va-settings-panel {
+  margin-top: var(--rt-space-4);
+  padding-top: var(--rt-space-3);
+  border-top: 1px solid var(--rt-color-border);
+  display: flex;
+  flex-direction: column;
+  gap: var(--rt-space-2);
+  align-items: flex-start;
+}
+
+.va-settings-hint {
+  font-size: var(--rt-text-xs);
+  color: var(--rt-color-text-secondary);
+  line-height: 1.5;
+}
+

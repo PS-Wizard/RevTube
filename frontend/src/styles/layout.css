@@ -1,0 +1,187 @@
+/**
+ * Centralized responsive layout system — single source of truth for page
+ * structure, breakpoints, and responsive behavior.
+ *
+ * RULE: pages must compose from `.rt-page*` slots + Tailwind responsive
+ * utilities. Do NOT add per-page `max-width` or `@media` page-shell rules —
+ * extend these slots instead. Design tokens only (no raw hex).
+ *
+ * Canonical breakpoints (mobile-first, matches Tailwind defaults):
+ *   base  < 40rem    phones
+ *   sm    >= 40rem   large phones
+ *   md    >= 48rem   tablets / sidebar-drawer breakpoint (Layout)
+ *   lg    >= 64rem   small laptops
+ *   xl    >= 80rem   desktops
+ */
+
+/* ── Page shell ─────────────────────────────────────────────────────────── */
+.rt-page {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Width variants — pages opt in; default is full-bleed fluid. */
+.rt-page--full {
+  max-width: 100%;
+}
+
+.rt-page--wide {
+  max-width: 96rem;
+  margin-inline: auto;
+}
+
+.rt-page--narrow {
+  max-width: 56rem;
+  margin-inline: auto;
+}
+
+/* ── Slots ──────────────────────────────────────────────────────────────── */
+.rt-page__header {
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.rt-page__alerts {
+  display: flex;
+  flex-direction: column;
+  gap: var(--rt-space-3);
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  padding: var(--rt-space-3) var(--rt-space-5) 0;
+}
+
+.rt-page__toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--rt-space-3) var(--rt-space-4);
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  padding: var(--rt-space-3) var(--rt-space-5);
+}
+
+.rt-page__content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--rt-space-4);
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  padding: 0 var(--rt-space-5) var(--rt-space-6);
+}
+
+/* ── Generic title band (pages without a custom sticky header) ──────────── */
+.rt-page__titleband {
+  display: flex;
+  flex-direction: column;
+  gap: var(--rt-space-1);
+  min-height: var(--rt-panel-header-height);
+  justify-content: center;
+  padding: var(--rt-space-4) var(--rt-space-5);
+  margin-bottom: var(--rt-space-4);
+  background: var(--rt-color-bg-highlight);
+  border-bottom: 1px solid var(--rt-table-header-border);
+  box-sizing: border-box;
+}
+
+.rt-page__titleband h1 {
+  margin: 0;
+  font-size: var(--rt-text-lg);
+  font-weight: var(--rt-weight-semibold);
+  line-height: var(--rt-leading-tight);
+  letter-spacing: var(--rt-tracking-ui);
+  color: var(--rt-color-text);
+}
+
+.rt-page__titleband p {
+  margin: 0;
+  font-size: var(--rt-text-sm);
+  line-height: 1.45;
+  color: var(--rt-table-cell-text-muted);
+}
+
+/* Split variant: title left, actions right — stacks on phones. */
+.rt-page__titleband--split {
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--rt-space-4);
+}
+
+.rt-page__titleband--split > div:first-child {
+  flex: 1 1 12rem;
+  min-width: 0;
+}
+
+.rt-page__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--rt-space-2);
+  flex-shrink: 0;
+  flex-wrap: wrap;
+}
+
+/* ── Responsive grids ───────────────────────────────────────────────────── */
+.rt-grid {
+  display: grid;
+  gap: var(--rt-space-4);
+  grid-template-columns: 1fr;
+  min-width: 0;
+}
+
+.rt-grid--cards {
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr));
+}
+
+.rt-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--rt-space-4);
+  min-width: 0;
+}
+
+.rt-cluster {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--rt-space-2) var(--rt-space-3);
+  min-width: 0;
+}
+
+/* ── Tablet and up ──────────────────────────────────────────────────────── */
+@media (min-width: 48rem) {
+  .rt-grid--halves {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .rt-page__toolbar {
+    flex-wrap: nowrap;
+  }
+}
+
+/* ── Small laptop and up ────────────────────────────────────────────────── */
+@media (min-width: 64rem) {
+  .rt-grid--thirds {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* ── Phone tightening (single canonical gutter rule) ────────────────────── */
+@media (max-width: 48rem) {
+  .rt-page__alerts,
+  .rt-page__toolbar,
+  .rt-page__content,
+  .rt-page__titleband {
+    padding-inline: var(--rt-space-4);
+  }
+}

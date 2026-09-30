@@ -1,0 +1,71 @@
+/**
+ * EvilCharts chrome styles -- shadcn-friendly container, toolbar, legend and tooltip
+ * shells. All color comes from `--rt-*` design tokens; no ad-hoc hex here.
+ */
+
+.evil-chart {
+  position: relative;
+  width: 100%;
+  font-family: var(--rt-font-sans);
+  font-size: var(--rt-text-xs);
+  color: var(--rt-color-text-secondary);
+}
+
+.evil-chart__toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--rt-space-1);
+  margin-bottom: var(--rt-space-2);
+}
+
+.evil-chart__toolbar:empty {
+  display: none;
+}
+
+.evil-chart__body {
+  position: relative;
+  width: 100%;
+}
+
+.evil-chart__body > div {
+  outline: none;
+}
+
+.evil-chart__overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--rt-radius-lg);
+  background: var(--rt-color-bg-subtle);
+  color: var(--rt-color-text-tertiary);
+  font-size: var(--rt-text-sm);
+  font-weight: var(--rt-weight-medium);
+}
+
+.evil-chart__overlay--loading::after {
+  content: '';
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 50%;
+  border: 2px solid var(--rt-color-border-strong);
+  border-top-color: var(--rt-color-accent);
+  animation: evil-chart-spin 0.9s linear infinite;
+}
+
+@keyframes evil-chart-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.evil-chart__empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--rt-space-2);
+  text-align: center;
+  padding: var(--rt-space-6);
+}

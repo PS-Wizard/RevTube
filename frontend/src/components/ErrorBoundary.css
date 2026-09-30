@@ -1,0 +1,53 @@
+.error-boundary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: var(--rt-space-8);
+  background: var(--rt-color-bg-app);
+}
+
+.error-boundary-content {
+  background: var(--rt-card-bg);
+  border: var(--rt-card-border);
+  padding: var(--rt-space-8);
+  border-radius: var(--rt-card-radius);
+  box-shadow: var(--rt-shadow-md);
+  text-align: center;
+  max-width: 500px;
+  width: 100%;
+}
+
+.error-boundary-content svg {
+  width: 64px;
+  height: 64px;
+  color: var(--rt-color-danger);
+  margin-bottom: var(--rt-space-6);
+}
+
+.error-boundary-content h2 {
+  margin: 0 0 var(--rt-space-4) 0;
+  color: var(--rt-color-text);
+  font-size: var(--rt-text-display);
+  font-weight: var(--rt-weight-semibold);
+}
+
+.error-boundary-content p {
+  color: var(--rt-color-text-secondary);
+  margin: 0 0 var(--rt-space-8) 0;
+  line-height: 1.6;
+}
+
+.error-details {
+  background: var(--rt-color-bg-muted);
+  padding: var(--rt-space-4);
+  border-radius: var(--rt-radius-md);
+  color: var(--rt-color-danger);
+  font-size: var(--rt-text-md);
+  text-align: left;
+  overflow-x: auto;
+  margin-bottom: var(--rt-space-8);
+  word-break: break-all;
+  white-space: pre-wrap;
+}
+

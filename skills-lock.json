@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "skills": {
+    "checklist-design": {
+      "source": "checklist-design/skills",
+      "sourceType": "github",
+      "skillPath": "skills/checklist-design/SKILL.md",
+      "computedHash": "72719bddb826cabd8977b5256ade2a697fb1d4f41c9104fe5f29ed438721fda8"
+    },
+    "frontend-design": {
+      "source": "anthropics/skills",
+      "sourceType": "github",
+      "skillPath": "skills/frontend-design/SKILL.md",
+      "computedHash": "89496d5dd00f4810205f351759594fc2742bf8eea85a2f2b2d1de59f4bd91576"
+    },
+    "pretty-mermaid": {
+      "source": "imxv/pretty-mermaid-skills",
+      "sourceType": "github",
+      "skillPath": "SKILL.md",
+      "computedHash": "bfaa07f1c058015c3429773f8c3e7fe9dd6e41c17e4b879cc810fdeb4093b785"
+    },
+    "typst": {
+      "source": "lucifer1004/claude-skill-typst",
+      "sourceType": "github",
+      "skillPath": "skills/typst/SKILL.md",
+      "computedHash": "87792835550b84b6aad84d1ecf6540050048d59c784d4139c68f378e99df24f4"
+    }
+  }
+}

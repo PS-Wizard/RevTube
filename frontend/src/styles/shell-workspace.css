@@ -1,0 +1,43 @@
+/*
+ * Main work area: elevated column on muted canvas (sidebar + header stay on rail tokens).
+ * Pages inside .content-area should use transparent .page-container backgrounds.
+ */
+
+.main-content {
+  padding-top: var(--rt-shell-workspace-gap);
+  padding-right: var(--rt-shell-workspace-gap);
+  padding-bottom: 0;
+  /* Sidebar rail offset (Layout.tsx) + visible gutter before elevated panel */
+  padding-inline-start: calc(var(--sidebar-rail-offset, 0px) + var(--rt-shell-workspace-gap-sidebar));
+  box-sizing: border-box;
+}
+
+.content-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+  width: 100%;
+  box-sizing: border-box;
+  background: var(--rt-color-bg-elevated);
+  border-radius: var(--rt-shell-workspace-radius) 0 0 0;
+  box-shadow: var(--rt-shell-workspace-shadow);
+  overflow: auto;
+}
+
+.content-area .page-container {
+  background: transparent;
+  min-height: 100%;
+}
+
+@media (max-width: 768px) {
+  .main-content {
+    padding: var(--rt-shell-workspace-gap);
+    padding-inline-start: var(--rt-shell-workspace-gap);
+  }
+
+  .content-area {
+    border-radius: var(--rt-shell-workspace-radius) var(--rt-shell-workspace-radius) 0 0;
+  }
+}

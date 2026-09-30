@@ -1,0 +1,83 @@
+/* ─────────────────────────────────────────────────────────────
+   EmptyState — shared empty / no-results / error card
+   Structure matches OptimizedListPage's opt-empty-card pattern.
+   100% design-token compliant — no raw hex colors.
+   ───────────────────────────────────────────────────────────── */
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--rt-space-8) var(--rt-space-4);
+  text-align: center;
+  background-color: var(--rt-color-bg-elevated);
+  border: 1px dashed var(--rt-color-border-strong);
+  border-radius: var(--rt-radius-lg);
+  margin-top: var(--rt-space-2);
+  width: 100%;
+}
+
+/* ── Icon wrap — pill-shaped badge ── */
+.empty-state-icon-wrap {
+  width: 56px;
+  height: 56px;
+  border-radius: var(--rt-radius-pill);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--rt-space-3);
+  flex-shrink: 0;
+}
+
+/* variant-aware colours */
+.empty-state--zero .empty-state-icon-wrap {
+  background-color: var(--rt-color-success-surface);
+  color: var(--rt-color-success);
+}
+
+.empty-state--no-results .empty-state-icon-wrap {
+  background-color: var(--rt-color-accent-muted);
+  color: var(--rt-color-accent);
+}
+
+.empty-state--error .empty-state-icon-wrap {
+  background-color: var(--rt-color-danger-surface);
+  color: var(--rt-color-danger);
+}
+
+/* Icon inside wrap */
+.empty-state-icon-wrap svg {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+}
+
+/* ── Title ── */
+.empty-state-title {
+  font-family: var(--rt-font-sans);
+  font-size: var(--rt-text-lg);
+  font-weight: var(--rt-weight-semibold);
+  color: var(--rt-color-text);
+  margin: 0 0 var(--rt-space-1) 0;
+  line-height: 1.3;
+}
+
+.empty-state--error .empty-state-title {
+  color: var(--rt-color-danger);
+}
+
+/* ── Description ── */
+.empty-state-description {
+  font-family: var(--rt-font-sans);
+  font-size: var(--rt-text-sm);
+  color: var(--rt-color-text-secondary);
+  max-width: 480px;
+  margin: 0 0 var(--rt-space-4) 0;
+  line-height: 1.5;
+}
+
+/* ── Optional action slot ── */
+.empty-state-action {
+  margin-top: var(--rt-space-1);
+}

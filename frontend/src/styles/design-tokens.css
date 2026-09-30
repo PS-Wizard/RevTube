@@ -1,0 +1,1023 @@
+/**
+ * RevTube design tokens -- single source of truth for color, space, radius, type, elevation.
+ * Philosophy: simple/clear/functional UI, neutrals-first color, WCAG AA, scalable primitives.
+ * Use var(--rt-*) in component CSS; no ad-hoc hex. See docs/DESIGN_LANGUAGE.md.
+ */
+
+:root {
+  /* ── Brand & semantic color (light) ───────────────────────── */
+  /* Match legacy index.css primary scale */
+  --rt-color-accent: #3b82f6;
+  --rt-color-accent-hover: #2563eb;
+  --rt-color-accent-muted: #eff6ff;
+  --rt-color-btn-primary: #111111;
+  --rt-color-btn-primary-hover: #000000;
+  --rt-color-on-primary: #ffffff;
+
+  /* YouTube / high-attention CTAs (connect, export) -- keep scarce */
+  --rt-color-youtube: #ef4444;
+  --rt-color-youtube-hover: #dc2626;
+
+  --rt-color-danger: #dc2626;
+  --rt-color-danger-hover: #b91c1c;
+  --rt-color-danger-surface: #fef2f2;
+
+  --rt-color-success: #059669;
+  --rt-color-success-surface: #ecfdf5;
+
+  --rt-color-warning: #d97706;
+  --rt-color-warning-surface: #fffbeb;
+
+  --rt-color-info: #a855f7;
+  --rt-color-info-hover: #6d28d9;
+  --rt-color-info-emphasis: #7c3aed;
+  --rt-color-info-surface: #f3e8ff;
+
+  /* Surfaces */
+  /* Workspace canvas -- muted field behind elevated main column */
+  --rt-color-bg-app: #f6f8fa;
+
+  /*
+   * Layout rail (sidebar + top bar): one neutral system so nav / footer / header match.
+   */
+  --rt-layout-rail-bg: #f9fafb;
+  --rt-layout-rail-border: var(--rt-color-border);
+  --rt-layout-rail-hover: #eef2f7;
+  --rt-layout-rail-active-bg: #e5e7eb;
+  --rt-layout-rail-text: #4b5563;
+  --rt-layout-rail-text-strong: #111827;
+  --rt-color-bg-elevated: #ffffff;
+  --rt-color-bg-subtle: #f8fafc;
+  --rt-color-bg-muted: #f1f5f9;
+  /* Table header / row hover (report-style dense tables) */
+  --rt-color-bg-highlight: #f7f9fe;
+
+  /* Text */
+  --rt-color-text: #111827;
+  --rt-color-text-secondary: #4b5563;
+  --rt-color-text-tertiary: #6b7280;
+  --rt-color-text-disabled: #9ca3af;
+
+  /* Borders */
+  --rt-color-border: #e5e7eb;
+  --rt-color-border-strong: #d1d5db;
+
+  /* ── Typography (UI) ─────────────────────────────────────────── */
+  --rt-font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --rt-text-xs: 0.75rem;
+  /* Smaller than `--rt-text-xs` -- rail overlines, footer meta */
+  --rt-text-2xs: 0.6875rem;
+  --rt-text-sm: 0.8125rem;
+  --rt-text-md: 0.875rem;
+  /* Uppercase badges / pills -- use sparingly */
+  --rt-text-badge-sm: 0.65rem;
+  --rt-text-pill: 0.58rem;
+  --rt-text-lg: 1rem;
+  --rt-text-xl: 1.125rem;
+  --rt-text-kpi: 1.25rem;
+  --rt-text-display: 1.5rem;
+  --rt-weight-medium: 500;
+  --rt-weight-semibold: 600;
+  --rt-weight-bold: 700;
+  --rt-leading-tight: 1.25;
+  --rt-tracking-ui: 0.01em;
+
+  /* ── Space (4px grid) ─────────────────────────────────────── */
+  --rt-space-1: 0.25rem;
+  --rt-space-2: 0.5rem;
+  --rt-space-3: 0.75rem;
+  --rt-space-4: 1rem;
+  --rt-space-5: 1.25rem;
+  --rt-space-6: 1.5rem;
+  --rt-space-8: 2rem;
+
+  /* ── Radius (two-stop system: 4px controls, 8px panels) ─── */
+  --rt-radius-sm: 4px;
+  --rt-radius-md: 4px;
+  --rt-radius-lg: 8px;
+  --rt-radius-xl: 8px;
+  --rt-radius-pill: 9999px;
+
+  /* ── Elevation ─────────────────────────────────────────────── */
+  --rt-shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --rt-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
+  --rt-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+
+  /* ── Controls (buttons, inputs) ───────────────────────────── */
+  --rt-control-height-sm: 32px;
+  --rt-control-height-md: 38px;
+  --rt-control-height-lg: 44px;
+  --rt-btn-padding-x-sm: 0.75rem;
+  --rt-btn-padding-x-md: 1rem;
+  --rt-btn-padding-x-lg: 1.25rem;
+  --rt-transition-fast: 0.15s ease;
+  --rt-transition-base: 0.2s ease;
+  --rt-focus-ring: 0 0 0 2px var(--rt-color-accent-muted);
+
+  /* Toggle controls (native + MUI Switch) */
+  --rt-toggle-track-off: var(--rt-color-border-strong);
+  --rt-toggle-track-on: var(--rt-color-btn-primary);
+  --rt-toggle-knob: #ffffff;
+  --rt-toggle-height: 22px;
+  --rt-toggle-width: 40px;
+  --rt-toggle-knob-size: 16px;
+  --rt-toggle-thumb-offset: 3px;
+
+  /* ── Chart series -- spaced hues (views red; subs lost orange; comments cyan) ── */
+  --rt-chart-views: #ef4444;
+  --rt-chart-subs-gained: #059669;
+  --rt-chart-subs-lost: #ea580c;
+  --rt-chart-watch-time: #4f46e5;
+  --rt-chart-likes: #db2777;
+  --rt-chart-comments: #0891b2;
+  --rt-chart-uploads: #ca8a04;
+  --rt-chart-shares: #06b6d4;
+  --rt-chart-avg-view-duration: #8b5cf6;
+  --rt-chart-engaged-views: #0ea5e9;
+  --rt-chart-viewer-percentage: #14b8a6;
+  --rt-chart-card-clicks: #f43f5e;
+  --rt-chart-card-click-rate: #f97316;
+  --rt-chart-card-impressions: #a855f7;
+  --rt-chart-card-teaser-clicks: #ec4899;
+  --rt-chart-card-teaser-click-rate: #84cc16;
+  --rt-chart-card-teaser-impressions: #22c55e;
+  --rt-chart-avg-concurrent: #eab308;
+  --rt-chart-peak-concurrent: #dc2626;
+  --rt-chart-subs-net: #0f766e;
+  --rt-chart-subs-total: #1d4ed8;
+
+  /* ── Cards ─────────────────────────────────────────────────── */
+  --rt-card-bg: var(--rt-color-bg-elevated);
+  --rt-card-border: 1px solid var(--rt-color-border);
+  --rt-card-radius: var(--rt-radius-lg);
+  /* Border-first panels (dashboard, .rt-card); overlays use --rt-popover-shadow / --rt-shadow-md */
+  --rt-card-shadow: none;
+  --rt-card-padding: var(--rt-space-6);
+
+  /* Popovers / dropdown panels (menus, channel picker, custom lists) */
+  --rt-popover-bg: var(--rt-color-bg-elevated);
+  --rt-popover-border: 1px solid var(--rt-color-border-strong);
+  --rt-popover-shadow: var(--rt-shadow-md);
+  --rt-popover-radius: var(--rt-radius-lg);
+  --rt-popover-item-hover: var(--rt-color-bg-muted);
+  --rt-popover-item-selected-bg: var(--rt-color-accent-muted);
+  --rt-popover-item-selected-border: 1px solid var(--rt-color-accent);
+
+  /* Dropdown layout -- single source for menus + trigger heights */
+  --rt-dropdown-z: 1000;
+  --rt-dropdown-offset-y: var(--rt-space-2);
+  --rt-dropdown-trigger-height: var(--rt-control-height-sm);
+  --rt-dropdown-trigger-height-toolbar: var(--rt-toolbar-height);
+  --rt-dropdown-panel-width-md: 20rem;
+  --rt-dropdown-panel-width-sm: 16.25rem;
+  --rt-dropdown-panel-width-min: 15rem;
+  --rt-dropdown-panel-width-action: 10rem;
+  --rt-dropdown-panel-max-height: min(25rem, 70vh);
+  --rt-dropdown-list-max-height: 15.625rem;
+  --rt-dropdown-item-min-height: var(--rt-control-height-sm);
+  --rt-dropdown-item-padding-y: var(--rt-space-2);
+  --rt-dropdown-item-padding-x: var(--rt-space-3);
+  --rt-dropdown-header-padding-y: var(--rt-space-2);
+  --rt-dropdown-header-padding-x: var(--rt-space-3);
+  --rt-dropdown-footer-padding-y: var(--rt-space-2);
+  --rt-dropdown-footer-padding-x: var(--rt-space-3);
+  --rt-dropdown-search-padding-y: var(--rt-space-2);
+  --rt-dropdown-search-padding-x: var(--rt-space-3);
+
+  /* Compact dashboard toolbar row */
+  --rt-toolbar-height: 28px;
+
+  /* Panel / page chrome bar (enterprise report pages) */
+  --rt-panel-header-height: 60px;
+
+  /* Raised main column beside sidebar */
+  --rt-shell-workspace-radius: 16px;
+  --rt-shell-workspace-gap: var(--rt-space-2);
+  --rt-shell-workspace-gap-sidebar: var(--rt-space-3);
+  --rt-shell-workspace-shadow: var(--rt-shadow-sm);
+
+  /* Report toolbar filter fields (~w-64) */
+  --rt-filter-field-width: 16rem;
+
+  /* Data tables (video list, admin, reports) */
+  --rt-table-font-size: var(--rt-text-sm);
+  --rt-table-line-height: 1.45;
+  --rt-table-header-font-size: 0.8125rem;
+  --rt-table-header-line-height: 1.3;
+  --rt-table-header-bg: var(--rt-color-bg-highlight);
+  --rt-table-header-text: var(--rt-color-text-secondary);
+  --rt-table-header-weight: var(--rt-weight-semibold);
+  --rt-table-header-min-height: 44px;
+  --rt-table-toolbar-min-height: 56px;
+  --rt-table-cell-padding-y: 0.75rem;
+  --rt-table-cell-padding-x: var(--rt-space-4);
+  --rt-table-row-min-height: 48px;
+  --rt-table-row-border: var(--rt-color-border);
+  --rt-table-header-border: var(--rt-color-border-strong);
+  --rt-table-row-hover-bg: var(--rt-layout-rail-hover);
+  --rt-table-row-selected-bg: var(--rt-color-accent-muted);
+  --rt-table-cell-text: var(--rt-color-text);
+  --rt-table-cell-text-muted: var(--rt-color-text-secondary);
+  --rt-table-sort-active: var(--rt-color-text);
+  --rt-table-footer-bg: var(--rt-color-bg-subtle);
+  --rt-table-checkbox-col-width: 56px;
+  --rt-table-actions-col-width: 56px;
+
+  /*
+   * App shell -- full-width pages (dashboard, etc.)
+   * One gutter + max-width for inner alignment; headers can full-bleed with negative margins.
+   */
+  --rt-shell-content-max-width: 100%;
+  /*
+   * App main column -- match compact sidebar rhythm (tighter than loose marketing pages).
+   */
+  --rt-shell-page-gutter-x: var(--rt-space-3);
+  --rt-shell-page-gutter-y: var(--rt-space-2);
+  --rt-shell-header-z-index: 25;
+  /*
+   * ECharts axis tooltips (spike/dip anomaly popups) render inside the chart
+   * card but must paint above the sticky dashboard tab rail when a hovered
+   * point sits near the top of the graph.
+   */
+  --rt-chart-tooltip-z-index: 60;
+
+  /*
+   * Standard page chrome -- default UI body matches sidebar nav (`--rt-text-md`).
+   * Use `--rt-text-sm` for secondary lines (descriptions, table body).
+   */
+  --rt-page-title-size: var(--rt-text-md);
+  --rt-section-title-size: var(--rt-text-md);
+  --rt-page-body-size: var(--rt-text-md);
+  --rt-page-header-padding-top: var(--rt-space-4);
+  --rt-page-header-padding-bottom: var(--rt-space-3);
+  --rt-page-header-padding-x: var(--rt-space-4);
+
+  /* Toolbar row under header (lists + filters) */
+  --rt-shell-toolbar-gap: var(--rt-space-4);
+  --rt-shell-toolbar-padding-y: var(--rt-space-3);
+  --rt-shell-toolbar-padding-x: var(--rt-space-4);
+
+  /* Bridge to legacy index.css variables (keep in sync) */
+  --bg-primary: var(--rt-color-bg-app);
+  --bg-surface: var(--rt-color-bg-elevated);
+  --text-primary: rgba(17, 24, 39, 0.92);
+  --text-secondary: rgba(17, 24, 39, 0.65);
+  --text-tertiary: rgba(17, 24, 39, 0.45);
+  --border-color: rgba(0, 0, 0, 0.08);
+  --border-color-strong: rgba(0, 0, 0, 0.14);
+  --primary-color: var(--rt-color-accent);
+  --primary-color-hover: var(--rt-color-accent-hover);
+  --danger-color: var(--rt-color-danger);
+  --success-color: var(--rt-color-success);
+}
+
+[data-theme='dark'],
+.dark {
+  --rt-color-bg-app: #0f1117;
+  --rt-color-bg-elevated: #1a1d27;
+  --rt-color-bg-subtle: #141720;
+  --rt-color-bg-muted: #22252e;
+  --rt-color-bg-highlight: #1c2130;
+
+  --rt-color-text: rgba(255, 255, 255, 0.92);
+  --rt-color-text-secondary: rgba(255, 255, 255, 0.65);
+  --rt-color-text-tertiary: rgba(255, 255, 255, 0.45);
+  --rt-color-text-disabled: rgba(255, 255, 255, 0.35);
+
+  --rt-color-border: rgba(255, 255, 255, 0.1);
+  --rt-color-border-strong: rgba(255, 255, 255, 0.16);
+
+  --rt-color-accent: #60a5fa;
+  --rt-color-accent-hover: #3b82f6;
+  --rt-color-accent-muted: rgba(59, 130, 246, 0.15);
+  /* #111111 is invisible on the dark app background — use the accent blue so
+     primary buttons have a visible surface in dark mode. Text stays white
+     via --rt-color-on-primary. Must stay aligned with rtPalette.ts. */
+  --rt-color-btn-primary: #3b82f6;
+  --rt-color-btn-primary-hover: #2563eb;
+  --rt-color-on-primary: #ffffff;
+
+  --rt-color-youtube: #f87171;
+  --rt-color-youtube-hover: #ef4444;
+
+  --rt-color-warning: #fbbf24;
+  --rt-color-warning-surface: rgba(251, 191, 36, 0.12);
+
+  --rt-color-info: #c084fc;
+  --rt-color-info-hover: #a855f7;
+  --rt-color-info-emphasis: #9333ea;
+
+  --rt-table-header-bg: var(--rt-color-bg-highlight);
+  --rt-table-row-hover-bg: rgba(255, 255, 255, 0.04);
+  --rt-table-row-selected-bg: var(--rt-color-accent-muted);
+
+  --rt-card-bg: var(--rt-color-bg-elevated);
+  --rt-card-border: 1px solid var(--rt-color-border-strong);
+  --rt-shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.2);
+  --rt-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.25);
+  --rt-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.35);
+
+  --bg-primary: var(--rt-color-bg-app);
+  --bg-surface: var(--rt-color-bg-elevated);
+  --text-primary: rgba(255, 255, 255, 0.92);
+  --text-secondary: rgba(255, 255, 255, 0.62);
+  --text-tertiary: rgba(255, 255, 255, 0.38);
+  --border-color: rgba(255, 255, 255, 0.08);
+  --border-color-strong: rgba(255, 255, 255, 0.15);
+  --primary-color: var(--rt-color-accent);
+  --primary-color-hover: var(--rt-color-accent-hover);
+  --danger-color: #f87171;
+  --success-color: #34d399;
+
+  --rt-layout-rail-bg: var(--rt-color-bg-subtle);
+  --rt-layout-rail-border: var(--rt-color-border-strong);
+  --rt-layout-rail-hover: rgba(255, 255, 255, 0.06);
+  --rt-layout-rail-active-bg: rgba(255, 255, 255, 0.1);
+  --rt-layout-rail-text: var(--rt-color-text-secondary);
+  --rt-layout-rail-text-strong: var(--rt-color-text);
+}
+
+/**
+ * Canonical button surface (opt-in). Prefer composing from tokens in existing CSS first;
+ * use these classes for new UI or when refactoring a screen.
+ */
+.rt-btn {
+  font-family: var(--rt-font-sans);
+  font-size: var(--rt-text-md);
+  font-weight: var(--rt-weight-semibold);
+  line-height: var(--rt-leading-tight);
+  letter-spacing: var(--rt-tracking-ui);
+  border-radius: var(--rt-radius-md);
+  min-height: var(--rt-control-height-md);
+  padding: 0 var(--rt-btn-padding-x-md);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--rt-space-2);
+  cursor: pointer;
+  transition: background-color var(--rt-transition-base), border-color var(--rt-transition-base),
+    color var(--rt-transition-base), box-shadow var(--rt-transition-base);
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+
+.rt-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* Baseline native controls for legacy screens */
+button:not(.rt-btn):not(.rt-dropdown-item):not(.MuiButtonBase-root) {
+  font-family: var(--rt-font-sans);
+  font-size: var(--rt-text-sm);
+  font-weight: var(--rt-weight-semibold);
+  transition: background-color var(--rt-transition-fast), border-color var(--rt-transition-fast),
+    color var(--rt-transition-fast), box-shadow var(--rt-transition-fast);
+}
+
+select:not(.MuiNativeSelect-select) {
+  border: 1px solid var(--rt-color-border-strong);
+  border-radius: var(--rt-radius-md);
+  background: var(--rt-color-bg-elevated);
+  color: var(--rt-color-text);
+}
+
+input[type='checkbox'] {
+  accent-color: var(--rt-color-accent);
+}
+
+/* Keyboard focus ring (skipped for mouse :focus-visible) */
+.custom-channel-selector:focus-visible,
+.rt-btn:focus-visible,
+.rt-dropdown-trigger:focus-visible,
+.filter-btn:focus-visible,
+.recent-item-delete:focus-visible,
+.signout-button-sidebar:focus-visible,
+.item-edit-btn:focus-visible,
+.item-delete-btn:focus-visible {
+  outline: 2px solid var(--rt-color-accent);
+  outline-offset: 2px;
+}
+
+.item-edit-btn:focus-visible,
+.item-delete-btn:focus-visible {
+  opacity: 1;
+}
+
+a.rt-btn {
+  text-decoration: none;
+  box-sizing: border-box;
+}
+
+.rt-btn--primary,
+.rt-btn.MuiButton-root.rt-btn--primary {
+  background: var(--rt-color-btn-primary);
+  color: var(--rt-color-on-primary);
+  border-color: var(--rt-color-btn-primary);
+}
+
+.rt-btn--primary:hover:not(:disabled),
+.rt-btn.MuiButton-root.rt-btn--primary:hover:not(:disabled) {
+  background: var(--rt-color-btn-primary-hover);
+  border-color: var(--rt-color-btn-primary-hover);
+  color: var(--rt-color-on-primary);
+}
+
+.rt-btn--secondary,
+.rt-btn.MuiButton-root.rt-btn--secondary {
+  background: var(--rt-color-bg-muted);
+  color: var(--rt-color-text);
+  border-color: var(--rt-color-border-strong);
+}
+
+.rt-btn--secondary:hover:not(:disabled),
+.rt-btn.MuiButton-root.rt-btn--secondary:hover:not(:disabled) {
+  background: var(--rt-color-border);
+  border-color: var(--rt-color-border-strong);
+  color: var(--rt-color-text);
+}
+
+.rt-btn--youtube,
+.rt-btn.MuiButton-root.rt-btn--youtube {
+  background: var(--rt-color-youtube);
+  color: #ffffff;
+  border-color: var(--rt-color-youtube);
+}
+
+.rt-btn--youtube:hover:not(:disabled),
+.rt-btn.MuiButton-root.rt-btn--youtube:hover:not(:disabled) {
+  background: var(--rt-color-youtube-hover);
+  border-color: var(--rt-color-youtube-hover);
+}
+
+.rt-btn--ghost,
+.rt-btn.MuiButton-root.rt-btn--ghost {
+  background: transparent;
+  color: var(--rt-color-text-secondary);
+  border-color: var(--rt-color-border);
+}
+
+.rt-btn--ghost:hover:not(:disabled),
+.rt-btn.MuiButton-root.rt-btn--ghost:hover:not(:disabled) {
+  background: var(--rt-color-bg-subtle);
+  color: var(--rt-color-text);
+}
+
+.rt-btn--danger,
+.rt-btn.MuiButton-root.rt-btn--danger {
+  background: var(--rt-color-danger);
+  color: #ffffff;
+  border-color: var(--rt-color-danger);
+}
+
+.rt-btn--danger:hover:not(:disabled),
+.rt-btn.MuiButton-root.rt-btn--danger:hover:not(:disabled) {
+  background: var(--rt-color-danger-hover);
+  border-color: var(--rt-color-danger-hover);
+  color: #ffffff;
+}
+
+.rt-btn--sm {
+  min-height: var(--rt-control-height-sm);
+  padding: 0 var(--rt-btn-padding-x-sm);
+  font-size: var(--rt-text-sm);
+}
+
+.rt-btn--block {
+  width: 100%;
+}
+
+.rt-btn--success,
+.rt-btn.MuiButton-root.rt-btn--success {
+  background: var(--rt-color-success);
+  color: var(--rt-color-on-primary);
+  border-color: var(--rt-color-success);
+}
+
+.rt-btn--success:hover:not(:disabled),
+.rt-btn.MuiButton-root.rt-btn--success:hover:not(:disabled) {
+  background: var(--rt-color-success);
+  border-color: var(--rt-color-success);
+  color: var(--rt-color-on-primary);
+  box-shadow: var(--rt-shadow-sm);
+}
+
+
+
+.rt-btn--icon.rt-btn--sm {
+  width: var(--rt-control-height-sm);
+  min-width: var(--rt-control-height-sm);
+}
+
+.rt-btn--pill {
+  border-radius: 999px;
+}
+
+/* Pressed/selected state for toggle-style buttons (chips, segmented controls) */
+
+/** Compact primary action in dashboard filter rows (Load, etc.) */
+
+/** Detached filter chips (not navigation tabs). Use role="group" + aria-pressed on each chip. */
+.rt-filter-chip-group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--rt-space-2);
+}
+
+.rt-filter-chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--rt-control-height-sm);
+  padding: 0 var(--rt-space-3);
+  border: 1px solid var(--rt-color-border-strong);
+  border-radius: var(--rt-radius-md);
+  background: var(--rt-color-bg-elevated);
+  color: var(--rt-color-text-secondary);
+  font-family: var(--rt-font-sans);
+  font-size: var(--rt-text-sm);
+  font-weight: var(--rt-weight-semibold);
+  letter-spacing: var(--rt-tracking-ui);
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background-color var(--rt-transition-fast),
+    border-color var(--rt-transition-fast),
+    color var(--rt-transition-fast);
+}
+
+.rt-filter-chip:hover {
+  background: var(--rt-color-bg-subtle);
+  color: var(--rt-color-text);
+}
+
+.rt-filter-chip.is-active {
+  background: var(--rt-color-bg-subtle);
+  border-color: var(--rt-color-text-tertiary);
+  color: var(--rt-color-text);
+}
+
+.rt-filter-chip:focus-visible {
+  outline: 2px solid var(--rt-color-accent);
+  outline-offset: 2px;
+}
+
+/* Chip internals -- colored dot + selected check (see ui/ChipToggle) */
+.rt-filter-chip__dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--chip-dot-color, var(--rt-color-text-tertiary));
+  opacity: 0.45;
+  flex-shrink: 0;
+  transition: opacity var(--rt-transition-fast);
+}
+
+.rt-filter-chip.is-active .rt-filter-chip__dot {
+  opacity: 1;
+}
+
+.rt-filter-chip__check {
+  width: 0.8rem;
+  height: 0.8rem;
+  color: var(--rt-color-success);
+  flex-shrink: 0;
+}
+
+/** Native selects in toolbars -- same chrome as dropdown triggers */
+.rt-select-native {
+  height: var(--rt-toolbar-height);
+  padding: 0 var(--rt-space-2);
+  border: 1px solid var(--rt-color-border-strong);
+  border-radius: var(--rt-radius-md);
+  background: var(--rt-color-bg-elevated);
+  font-family: var(--rt-font-sans);
+  font-size: var(--rt-text-sm);
+  font-weight: var(--rt-weight-semibold);
+  color: var(--rt-color-text-secondary);
+  outline: none;
+  min-width: 7.5rem;
+  cursor: pointer;
+  transition: border-color var(--rt-transition-fast), box-shadow var(--rt-transition-fast);
+}
+
+/* MUI NativeSelect wraps the <select> in a div -- target inner element directly */
+.rt-select-native select,
+.rt-select-native .MuiNativeSelect-select {
+  font-family: var(--rt-font-sans);
+  font-size: var(--rt-text-sm);
+  font-weight: var(--rt-weight-semibold);
+  color: var(--rt-color-text-secondary);
+  padding-left: var(--rt-space-2);
+  padding-right: 1.5rem;
+}
+
+/* Remove MUI underline pseudo-elements */
+.rt-select-native::before,
+.rt-select-native::after {
+  display: none !important;
+}
+
+.rt-select-native:hover:not(:disabled) {
+  border-color: var(--rt-color-border-strong);
+}
+
+.rt-select-native:focus-within {
+  border-color: var(--rt-color-accent);
+  box-shadow: 0 0 0 2px var(--rt-color-accent-muted);
+}
+
+.rt-select-native:has(select:disabled) {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/** Toolbar number input (custom video limit) */
+.rt-input-native--toolbar {
+  height: var(--rt-toolbar-height);
+  width: 3.75rem;
+  padding: 0;
+  border: 1px solid var(--rt-color-border-strong);
+  border-radius: var(--rt-radius-md);
+  font-family: var(--rt-font-sans);
+  font-size: var(--rt-text-sm);
+  color: var(--rt-color-text);
+  background: var(--rt-color-bg-elevated);
+  outline: none;
+}
+
+/* MUI TextField wraps the <input> -- target inner input element */
+.rt-input-native--toolbar .MuiInputBase-input,
+.rt-input-native--toolbar input {
+  font-family: var(--rt-font-sans);
+  font-size: var(--rt-text-sm);
+  color: var(--rt-color-text);
+  padding: 0 var(--rt-space-2);
+  height: var(--rt-toolbar-height);
+  box-sizing: border-box;
+}
+
+.rt-input-native--toolbar .MuiOutlinedInput-notchedOutline {
+  border-color: var(--rt-color-border-strong);
+  border-radius: var(--rt-radius-md);
+}
+
+.rt-input-native--toolbar:focus-within .MuiOutlinedInput-notchedOutline {
+  border-color: var(--rt-color-accent);
+  box-shadow: 0 0 0 2px var(--rt-color-accent-muted);
+}
+
+/** Standard input shell for forms */
+.rt-input-native {
+  width: 100%;
+  min-height: var(--rt-control-height-md);
+  padding: 0 var(--rt-space-3);
+  border: 1px solid var(--rt-color-border-strong);
+  border-radius: var(--rt-radius-md);
+  font-family: var(--rt-font-sans);
+  font-size: var(--rt-text-md);
+  color: var(--rt-color-text);
+  background: var(--rt-color-bg-elevated);
+  outline: none;
+  transition: border-color var(--rt-transition-fast), box-shadow var(--rt-transition-fast);
+}
+
+.rt-input-native:focus {
+  border-color: var(--rt-color-accent);
+  box-shadow: 0 0 0 2px var(--rt-color-accent-muted);
+}
+
+.rt-input-native:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/**
+ * Dropdown trigger -- use for “Load playlists”, dimension pickers, etc.
+ * Pair with existing popover markup; sizes: default (table), --toolbar (dashboard)
+ */
+.rt-dropdown-trigger {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--rt-space-2);
+  height: var(--rt-dropdown-trigger-height);
+  min-height: var(--rt-dropdown-trigger-height);
+  padding: 0 var(--rt-btn-padding-x-sm);
+  background: var(--rt-color-bg-elevated);
+  border: 1px solid var(--rt-color-border-strong);
+  border-radius: var(--rt-radius-md);
+  color: var(--rt-color-text);
+  font-family: var(--rt-font-sans);
+  font-size: var(--rt-text-md);
+  font-weight: var(--rt-weight-semibold);
+  cursor: pointer;
+  transition: background-color var(--rt-transition-base), border-color var(--rt-transition-base),
+    color var(--rt-transition-base);
+}
+
+.rt-dropdown-trigger:hover:not(:disabled) {
+  background: var(--rt-color-bg-subtle);
+  border-color: var(--rt-color-border-strong);
+  color: var(--rt-color-text);
+}
+
+.rt-dropdown-trigger:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.rt-dropdown-trigger--toolbar {
+  height: var(--rt-dropdown-trigger-height-toolbar);
+  min-height: var(--rt-dropdown-trigger-height-toolbar);
+  font-size: var(--rt-text-sm);
+  padding: 0 0.75rem;
+}
+
+.rt-dropdown-trigger svg {
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
+}
+
+/** Positioned wrapper for any floating menu */
+.rt-dropdown-anchor {
+  position: relative;
+}
+
+/**
+ * Dropdown panel -- compose with a placement modifier.
+ * Width / max-height use tokens so all menus stay consistent.
+ */
+.rt-dropdown-panel {
+  position: absolute;
+  z-index: var(--rt-dropdown-z);
+  box-sizing: border-box;
+  max-height: var(--rt-dropdown-panel-max-height);
+  background: var(--rt-popover-bg);
+  border: var(--rt-popover-border);
+  border-radius: var(--rt-popover-radius);
+  box-shadow: var(--rt-popover-shadow);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  max-width: calc(100vw - 1.5rem);
+}
+
+.rt-dropdown-panel--right {
+  right: 0;
+  top: calc(100% + var(--rt-dropdown-offset-y));
+  width: var(--rt-dropdown-panel-width-md);
+  max-width: calc(100vw - 1.5rem);
+}
+
+.rt-dropdown-panel--left {
+  left: 0;
+  top: calc(100% + var(--rt-dropdown-offset-y));
+  width: var(--rt-dropdown-panel-width-md);
+  max-width: calc(100vw - 1.5rem);
+}
+
+/** Match trigger width (channel picker) */
+.rt-dropdown-panel--full {
+  left: 0;
+  top: calc(100% + var(--rt-dropdown-offset-y));
+  width: 100%;
+  min-width: min(var(--rt-dropdown-panel-width-sm), calc(100vw - 2rem));
+  max-width: calc(100vw - 1.5rem);
+}
+
+/** Saved lists / compact pickers: content-sized with floor */
+.rt-dropdown-panel--menu {
+  left: 0;
+  top: calc(100% + var(--rt-dropdown-offset-y));
+  min-width: min(var(--rt-dropdown-panel-width-min), calc(100vw - 2rem));
+  width: max-content;
+  max-width: min(var(--rt-dropdown-panel-width-md), calc(100vw - 1.5rem));
+}
+
+/** Row actions (⋯ menu) */
+.rt-dropdown-panel--action {
+  right: 0;
+  top: 100%;
+  margin-top: var(--rt-dropdown-offset-y);
+  width: auto;
+  min-width: var(--rt-dropdown-panel-width-action);
+  max-height: none;
+}
+
+
+.rt-dropdown-header {
+  box-sizing: border-box;
+  padding: var(--rt-dropdown-header-padding-y) var(--rt-dropdown-header-padding-x);
+  border-bottom: 1px solid var(--rt-color-border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--rt-space-2);
+  flex-shrink: 0;
+}
+
+.rt-dropdown-title {
+  font-size: var(--rt-text-xs);
+  font-weight: var(--rt-weight-bold);
+  color: var(--rt-color-text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+
+.rt-dropdown-list {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  max-height: var(--rt-dropdown-list-max-height);
+}
+
+.rt-dropdown-footer {
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--rt-dropdown-footer-padding-y) var(--rt-dropdown-footer-padding-x);
+  border-top: 1px solid var(--rt-color-border);
+  background: var(--rt-color-bg-subtle);
+  flex-shrink: 0;
+}
+
+/** Search row inside panel (icon + input) */
+.rt-dropdown-search {
+  box-sizing: border-box;
+  padding: var(--rt-dropdown-search-padding-y) var(--rt-dropdown-search-padding-x);
+  background: var(--rt-color-bg-subtle);
+  border-bottom: 1px solid var(--rt-color-border);
+  display: flex;
+  align-items: center;
+  gap: var(--rt-space-2);
+  flex-shrink: 0;
+}
+
+.rt-dropdown-search input {
+  border: none;
+  background: transparent;
+  font-size: var(--rt-text-sm);
+  width: 100%;
+  outline: none;
+  color: var(--rt-color-text);
+  font-weight: var(--rt-weight-medium);
+  font-family: var(--rt-font-sans);
+}
+
+.rt-dropdown-search-input {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: var(--rt-dropdown-item-min-height);
+  padding: var(--rt-space-2) var(--rt-space-3);
+  border: 1px solid var(--rt-color-border-strong);
+  border-radius: var(--rt-radius-md);
+  font-size: var(--rt-text-md);
+  font-family: var(--rt-font-sans);
+  outline: none;
+  transition: border-color var(--rt-transition-base), box-shadow var(--rt-transition-base);
+  background: var(--rt-color-bg-elevated);
+  color: var(--rt-color-text);
+}
+
+.rt-dropdown-search-input:focus {
+  border-color: var(--rt-color-accent);
+  box-shadow: 0 0 0 2px var(--rt-color-accent-muted);
+}
+
+/**
+ * List row -- use for div or button.action
+ */
+.rt-dropdown-item {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: var(--rt-space-3);
+  min-height: var(--rt-dropdown-item-min-height);
+  padding: var(--rt-dropdown-item-padding-y) var(--rt-dropdown-item-padding-x);
+  cursor: pointer;
+  transition: background var(--rt-transition-fast);
+  border-bottom: 1px solid var(--rt-color-border);
+  font-size: var(--rt-text-md);
+  color: var(--rt-color-text);
+  font-family: var(--rt-font-sans);
+}
+
+.rt-dropdown-item:last-child {
+  border-bottom: none;
+}
+
+.rt-dropdown-item:hover:not(.disabled):not(:disabled) {
+  background: var(--rt-popover-item-hover);
+}
+
+.rt-dropdown-item.selected {
+  background: var(--rt-popover-item-selected-bg);
+}
+
+.rt-dropdown-item.disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.rt-dropdown-item.disabled:hover {
+  background: transparent;
+}
+
+/* Native toggle (Admin feature table pattern) */
+.rt-toggle-field {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--rt-space-2);
+  cursor: pointer;
+  user-select: none;
+}
+
+.rt-toggle__label {
+  line-height: var(--rt-leading-tight);
+}
+
+.rt-toggle {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+}
+
+.rt-toggle--disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.rt-toggle input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.rt-toggle__track {
+  width: var(--rt-toggle-width);
+  height: var(--rt-toggle-height);
+  background: var(--rt-toggle-track-off);
+  border-radius: var(--rt-radius-pill);
+  position: relative;
+  transition: background var(--rt-transition-base);
+  flex-shrink: 0;
+}
+
+.rt-toggle__track::after {
+  content: '';
+  position: absolute;
+  width: var(--rt-toggle-knob-size);
+  height: var(--rt-toggle-knob-size);
+  background: var(--rt-toggle-knob);
+  border-radius: 50%;
+  top: var(--rt-toggle-thumb-offset);
+  left: var(--rt-toggle-thumb-offset);
+  transition: transform var(--rt-transition-base);
+  box-shadow: var(--rt-shadow-xs);
+}
+
+.rt-toggle input:checked + .rt-toggle__track {
+  background: var(--rt-toggle-track-on);
+}
+
+.rt-toggle input:checked + .rt-toggle__track::after {
+  transform: translateX(
+    calc(var(--rt-toggle-width) - var(--rt-toggle-knob-size) - 2 * var(--rt-toggle-thumb-offset))
+  );
+}
+
+.rt-toggle input:focus-visible + .rt-toggle__track {
+  outline: 2px solid var(--rt-color-accent);
+  outline-offset: 2px;
+}
+
+button.rt-dropdown-item,
+a.rt-dropdown-item {
+  width: 100%;
+  margin: 0;
+  border: none;
+  background: transparent;
+  text-align: left;
+  text-decoration: none;
+  border-radius: 0;
+  border-bottom: 1px solid var(--rt-color-border);
+}
+
+button.rt-dropdown-item:last-child,
+a.rt-dropdown-item:last-child {
+  border-bottom: none;
+}
+
+/** Card shell for new / refactored panels */
+/* Dialog / Modal token rules live in shared-ui.css (single source of truth) */

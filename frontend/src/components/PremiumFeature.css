@@ -1,0 +1,84 @@
+.premium-lock-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--rt-space-8) var(--rt-space-6);
+    background: var(--rt-card-bg);
+    border-radius: var(--rt-card-radius);
+    border: var(--rt-card-border);
+    text-align: center;
+    margin: var(--rt-space-6) 0;
+    box-shadow: var(--rt-card-shadow);
+    animation: premiumFadeIn 0.3s ease-out;
+}
+
+@keyframes premiumFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.premium-lock-icon {
+    width: 52px;
+    height: 52px;
+    background: var(--rt-color-warning-surface);
+    color: var(--rt-color-warning);
+    border-radius: var(--rt-radius-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: var(--rt-space-5);
+}
+
+.premium-lock-icon svg {
+    width: 26px;
+    height: 26px;
+}
+
+.premium-lock-title {
+    font-size: var(--rt-text-lg);
+    font-weight: var(--rt-weight-semibold);
+    margin: 0 0 var(--rt-space-2) 0;
+    color: var(--rt-color-text);
+    letter-spacing: var(--rt-tracking-ui);
+    font-family: var(--rt-font-sans);
+}
+
+.premium-lock-message {
+    font-size: var(--rt-text-md);
+    color: var(--rt-color-text-secondary);
+    max-width: 360px;
+    margin: 0 0 var(--rt-space-6) 0;
+    line-height: 1.6;
+    font-family: var(--rt-font-sans);
+}
+
+.premium-upgrade-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--rt-space-2);
+    min-height: var(--rt-control-height-md);
+    padding: 0 var(--rt-btn-padding-x-lg);
+    background: var(--rt-color-btn-primary);
+    color: var(--rt-color-on-primary);
+    text-decoration: none;
+    border-radius: var(--rt-radius-md);
+    font-weight: var(--rt-weight-semibold);
+    font-size: var(--rt-text-md);
+    transition: background var(--rt-transition-fast);
+    font-family: var(--rt-font-sans);
+    border: 1px solid transparent;
+    cursor: pointer;
+}
+
+.premium-upgrade-btn:hover {
+    background: var(--rt-color-btn-primary-hover);
+}

@@ -1,0 +1,64 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // User document rules
+    match /users/{userId} {
+      // Users can fully read/write their own document
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+
+      // Allow any authenticated user to update ONLY org-membership fields on another
+      // user's document. This is required for org removal flows where an owner/admin
+      // removes a member — the batch must update the removed user's organizations list
+      // even though the caller's UID differs from the document's userId.
+      allow update: if request.auth != null &&
+        request.resource.data.diff(resource.data).affectedKeys()
+          .hasOnly(['organizations', 'currentOrganizationId']);
+
+      // Allow access to subcollections
+      match /{subcollection}/{document=**} {
+        allow read, write: if request.auth != null && request.auth.uid == userId;
+      }
+    }
+
+    // Organizations rules
+    match /organizations/{orgId} {
+      // Allow authenticated users to create organizations
+      allow create: if request.auth != null;
+      
+      // Allow organization members to read
+      allow read: if request.auth != null;
+      
+      // Allow organization owner to delete
+      allow delete: if request.auth != null &&
+                       resource.data.ownerId == request.auth.uid;
+
+      // Allow owner OR admin members to update (e.g. rename org)
+      allow update: if request.auth != null && (
+                       resource.data.ownerId == request.auth.uid ||
+                       get(/databases/$(database)/documents/organizations/$(orgId)/members/$(request.auth.uid)).data.role == 'admin'
+                    );
+      
+      // Organization subcollections (members, invitations, lists, channels, etc.)
+      match /{subcollection}/{document=**} {
+        allow read, write: if request.auth != null;
+      }
+    }
+
+    // Ownership transfers collection
+    match /ownershipTransfers/{transferId} {
+      // Allow authenticated users to create ownership transfers
+      allow create: if request.auth != null;
+      
+      // Allow anyone to read (needed for acceptance page)
+      allow read: if true;
+      
+      // Allow authenticated users to update (for accepting/declining)
+      allow update: if request.auth != null;
+      
+      // Allow creator to delete
+      allow delete: if request.auth != null && 
+                       resource.data.currentOwnerId == request.auth.uid;
+    }
+  }
+}

@@ -1,0 +1,265 @@
+/* Admin -- page-specific overrides only (layout uses global page-chrome + data-table tokens) */
+
+/* Restore standard page header spacing for Admin page to match other pages */
+.admin-page .page-header {
+  margin-bottom: var(--rt-space-4);
+}
+
+/* Ensure the left column in split headers stacks title + description
+   with the same vertical gap as non-split headers (matches Profile page) */
+.admin-page .page-header--split > div {
+  display: flex;
+  flex-direction: column;
+  gap: var(--rt-space-1);
+}
+
+/* ── Toolbar (filter chips + search) -- inside table-report header ──────── */
+.admin-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--rt-space-3);
+  flex: 1 1 auto;
+}
+
+.admin-toolbar .rt-filter-chip-group {
+  flex: 0 0 auto;
+}
+
+/* Search field -- grow to fill remaining toolbar space */
+.admin-search {
+  position: relative;
+  flex: 1 1 14rem;
+  min-width: 10rem;
+}
+
+.admin-search__icon {
+  position: absolute;
+  left: var(--rt-space-3);
+  top: 50%;
+  transform: translateY(-50%);
+  width: 15px;
+  height: 15px;
+  color: var(--rt-color-text-tertiary);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.admin-search-input {
+  width: 100%;
+  padding-left: 2.1rem; /* Indent past the absolute icon */
+}
+
+/* ── Main content -- mirrors dashboard-content / profile-layout width ──────── */
+.admin-content {
+  width: 100%;
+  max-width: min(var(--rt-shell-content-max-width), 100%);
+  margin-inline: auto;
+  padding: var(--rt-space-5) var(--rt-shell-page-gutter-x) var(--rt-space-8);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: var(--rt-space-4);
+  min-width: 0;
+}
+
+/* ── User cell ───────────────────────────────────────────────────────────── */
+.user-cell {
+  display: flex;
+  align-items: center;
+  gap: var(--rt-space-3);
+}
+
+.user-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: var(--rt-radius-md);
+  object-fit: cover;
+  border: 1px solid var(--rt-color-border);
+  flex-shrink: 0;
+}
+
+.user-avatar-placeholder {
+  width: 34px;
+  height: 34px;
+  border-radius: var(--rt-radius-md);
+  background: var(--rt-color-bg-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--rt-color-text-tertiary);
+  font-size: var(--rt-text-sm);
+  font-weight: var(--rt-weight-semibold);
+  flex-shrink: 0;
+  border: 1px solid var(--rt-color-border);
+}
+
+.user-info-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.user-name {
+  font-weight: var(--rt-weight-semibold);
+  color: var(--rt-color-text);
+  font-size: var(--rt-text-sm);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.user-email {
+  font-size: var(--rt-text-xs);
+  color: var(--rt-color-text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── Badges ──────────────────────────────────────────────────────────────── */
+.admin-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 2px 8px;
+  border-radius: var(--rt-radius-pill);
+  font-size: var(--rt-text-badge-sm);
+  font-weight: var(--rt-weight-semibold);
+  text-transform: capitalize;
+  letter-spacing: var(--rt-tracking-ui);
+  background: var(--rt-color-bg-muted);
+  color: var(--rt-color-text-tertiary);
+  border: 1px solid var(--rt-color-border);
+  white-space: nowrap;
+}
+
+/* ── Feature controls ────────────────────────────────────────────────────── */
+.page-name-cell {
+  font-weight: var(--rt-weight-semibold);
+  color: var(--rt-color-text);
+}
+
+/* Category subheader row inside the feature-controls table */
+.feature-group-row > td {
+  background-color: var(--rt-color-bg-subtle);
+  font-size: var(--rt-text-xs);
+  font-weight: var(--rt-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: var(--rt-tracking-ui);
+  color: var(--rt-color-text-secondary);
+}
+
+.admin-limit-note {
+  font-weight: var(--rt-weight-medium);
+  color: var(--rt-color-text-tertiary);
+  font-size: var(--rt-text-xs);
+}
+
+.limit-input {
+  width: 76px;
+}
+
+
+.limit-input.disabled {
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+/* ── Pagination ──────────────────────────────────────────────────────────── */
+.pagination-ellipsis {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2rem;
+  color: var(--rt-color-text-tertiary);
+  font-size: var(--rt-text-sm);
+  user-select: none;
+}
+
+/* ── Responsive ──────────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .admin-toolbar {
+    gap: var(--rt-space-2);
+  }
+
+  .admin-content {
+    padding: var(--rt-space-4) var(--rt-space-3) var(--rt-space-6);
+  }
+
+  .admin-search {
+    flex: 1 1 100%;
+  }
+}
+
+/* ── Danger Zone ──────────────────────────────────────────────────────── */
+.danger-zone__body {
+  background: var(--rt-color-bg-elevated);
+  border: 1px solid var(--rt-color-danger);
+  border-radius: var(--rt-radius-md);
+  overflow: hidden;
+}
+
+.danger-zone__item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--rt-space-4);
+  padding: var(--rt-space-5);
+}
+
+.danger-zone__item + .danger-zone__item {
+  border-top: 1px solid var(--rt-color-border);
+}
+
+.danger-zone__info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--rt-space-1);
+  min-width: 0;
+}
+
+.danger-zone__info strong {
+  font-size: var(--rt-text-sm);
+  color: var(--rt-color-text);
+}
+
+.danger-zone__info span {
+  font-size: var(--rt-text-xs);
+  color: var(--rt-color-text-secondary);
+  line-height: 1.45;
+}
+
+.danger-zone__result {
+  font-weight: var(--rt-weight-medium);
+  color: var(--rt-color-success);
+  margin-top: var(--rt-space-1);
+}
+
+/* Spin animation for refresh icon */
+@keyframes rt-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.rt-spin {
+  display: inline-block;
+  animation: rt-spin 0.8s linear infinite;
+}
+
+/* ── Queue Dashboard CTA ────────────────────────────────────────── */
+.table-report__cta {
+  padding: var(--rt-space-5);
+  border: 1px solid var(--rt-color-border);
+  border-radius: var(--rt-radius-md);
+  margin-top: var(--rt-space-1);
+}
+
+
+/* AI Chat now uses centralized Tailwind + shadcn styling inside ChatPage.tsx — no page-level CSS needed */

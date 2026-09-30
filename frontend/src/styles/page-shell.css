@@ -1,0 +1,32 @@
+/*
+ * Routed app chrome -- typography + paddings aligned with sidebar (Layout nav density).
+ * Load after App.css so these win over legacy rules.
+ */
+
+/* No horizontal auto margin -- centered max-width shells sit offset beside a fixed sidebar. */
+.page-container {
+  padding: 0;
+  max-width: none;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+/* .page-header -- styles/page-chrome.css */
+
+/* Section headings (VideoTable, PlaylistTable, dashboards) */
+
+.section-title {
+  font-size: var(--rt-text-md);
+  font-weight: var(--rt-weight-semibold);
+  letter-spacing: var(--rt-tracking-ui);
+  line-height: var(--rt-leading-tight);
+  color: var(--rt-layout-rail-text-strong);
+  margin: 0 0 var(--rt-space-2) 0;
+}
+
+.section-subtitle {
+  margin: 0;
+  font-size: var(--rt-text-sm);
+  line-height: 1.45;
+  color: var(--rt-layout-rail-text);
+}

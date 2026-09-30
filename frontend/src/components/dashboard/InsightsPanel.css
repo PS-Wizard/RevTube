@@ -1,0 +1,767 @@
+/**
+ * Insights Panel -- design-system-aligned chart sections for the Insights tab.
+ * Uses app design tokens (--rt-*) throughout. Each section card mirrors the
+ * dp-panel ledger pattern used across DashboardPage, Compare, and Channel tabs.
+ */
+
+/* ── Panel layout ──────────────────────────────────────────────────── */
+
+.insights-panel {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--rt-space-5);
+}
+
+/* ── Section card (sub-panel) ──────────────────────────────────────── */
+
+.insights-section {
+  background: var(--rt-card-bg);
+  border: var(--rt-card-border);
+  border-radius: var(--rt-card-radius);
+  box-shadow: var(--rt-card-shadow);
+  display: flex;
+  flex-direction: column;
+}
+
+.insights-section__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--rt-space-4);
+  min-height: var(--rt-panel-header-height);
+  padding: var(--rt-space-3) var(--rt-space-5);
+  border-bottom: 1px solid var(--rt-color-border);
+  flex-wrap: wrap;
+  overflow: visible;
+}
+
+.insights-section__header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.insights-section__title {
+  font-size: var(--rt-text-md);
+  font-weight: var(--rt-weight-semibold);
+  color: var(--rt-color-text);
+  letter-spacing: var(--rt-tracking-ui);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--rt-space-2);
+}
+
+.insights-section__title svg {
+  flex-shrink: 0;
+  opacity: 0.6;
+}
+
+.insights-section__desc {
+  font-size: var(--rt-text-xs);
+  color: var(--rt-color-text-tertiary);
+  font-weight: var(--rt-weight-medium);
+  margin: 0;
+}
+
+/* ── Section controls (toggle row in header-right) ──────────────────── */
+
+.insights-section__controls {
+  display: flex;
+  align-items: center;
+  gap: var(--rt-space-3);
+  flex-shrink: 0;
+  flex-wrap: nowrap;
+  /* Add vertical padding so controls don't get clipped on short min-height */
+  padding-top: var(--rt-space-2);
+  padding-bottom: var(--rt-space-2);
+}
+
+.insight-control-group {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--rt-space-2);
+}
+
+.insight-control-label {
+  font-size: var(--rt-text-2xs);
+  font-weight: var(--rt-weight-semibold);
+  color: var(--rt-color-text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+.insight-view-label {
+  font-size: var(--rt-text-xs);
+  font-weight: 600;
+  color: var(--rt-color-text-secondary);
+  white-space: nowrap;
+}
+
+/* ── Standard toggle (rt-toggle pattern from design-tokens.css) ───── */
+
+.insight-toggle {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+}
+
+.insight-toggle input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.insight-toggle__track {
+  width: var(--rt-toggle-width);
+  height: var(--rt-toggle-height);
+  background: var(--rt-toggle-track-off);
+  border-radius: var(--rt-radius-pill);
+  position: relative;
+  transition: background var(--rt-transition-base);
+  flex-shrink: 0;
+}
+
+.insight-toggle__track::after {
+  content: '';
+  position: absolute;
+  width: var(--rt-toggle-knob-size);
+  height: var(--rt-toggle-knob-size);
+  background: var(--rt-toggle-knob);
+  border-radius: 50%;
+  top: var(--rt-toggle-thumb-offset);
+  left: var(--rt-toggle-thumb-offset);
+  transition: transform var(--rt-transition-base);
+  box-shadow: var(--rt-shadow-xs);
+}
+
+.insight-toggle input:checked + .insight-toggle__track {
+  background: var(--rt-toggle-track-on);
+}
+
+.insight-toggle input:checked + .insight-toggle__track::after {
+  transform: translateX(
+    calc(var(--rt-toggle-width) - var(--rt-toggle-knob-size) - 2 * var(--rt-toggle-thumb-offset))
+  );
+}
+
+.insight-toggle input:focus-visible + .insight-toggle__track {
+  outline: 2px solid var(--rt-color-accent);
+  outline-offset: 2px;
+}
+
+/* ── Recommendation pill ───────────────────────────────────────────── */
+
+.insight-pill--recommendation {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--rt-space-2);
+  padding: var(--rt-space-1) var(--rt-space-3);
+  border-radius: var(--rt-radius-pill);
+  font-size: var(--rt-text-xs);
+  font-weight: var(--rt-weight-semibold);
+  line-height: var(--rt-leading-tight);
+  letter-spacing: var(--rt-tracking-ui);
+  background: color-mix(in srgb, var(--rt-color-accent) 10%, transparent);
+  color: var(--rt-color-accent);
+  border: 1px solid color-mix(in srgb, var(--rt-color-accent) 20%, transparent);
+  white-space: nowrap;
+}
+
+.insight-pill--recommendation svg {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+/* ── Stat row ──────────────────────────────────────────────────────── */
+
+.insight-stat-row {
+  display: flex;
+  gap: var(--rt-space-5);
+  flex-wrap: wrap;
+  padding: var(--rt-space-4) var(--rt-space-5);
+}
+
+.insight-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.insight-stat__label {
+  font-size: var(--rt-text-2xs);
+  font-weight: var(--rt-weight-semibold);
+  color: var(--rt-color-text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+.insight-stat__value {
+  font-size: var(--rt-text-kpi);
+  font-weight: var(--rt-weight-semibold);
+  color: var(--rt-color-text);
+  font-variant-numeric: tabular-nums;
+  line-height: var(--rt-leading-tight);
+}
+
+.insight-stat__value--highlight {
+  color: var(--rt-color-success);
+}
+
+.insight-stat__unit {
+  font-size: var(--rt-text-sm);
+  font-weight: var(--rt-weight-medium);
+  color: var(--rt-color-text-secondary);
+}
+
+/* ── Chart wrapper ─────────────────────────────────────────────────── */
+
+.insight-chart-wrap {
+  position: relative;
+  width: 100%;
+}
+
+.insight-chart-wrap--area {
+  min-height: 320px;
+}
+
+.insight-chart-wrap--area > .rt-chart {
+  min-height: 320px;
+}
+
+.insight-chart-wrap--bar {
+  min-height: 280px;
+}
+
+.insight-chart-wrap--bar > .rt-chart {
+  min-height: 280px;
+}
+
+/* ── Chart section body (padding wrapper around chart) ──────────────── */
+.insights-section .insight-chart-wrap {
+  padding: 0 var(--rt-space-5) var(--rt-space-5);
+  box-sizing: border-box;
+}
+
+/* ── Bar chart legend ──────────────────────────────────────────────── */
+
+
+
+
+
+/* ── (Empty state uses shared EmptyState component ───────────────────── */
+
+/* ── Loading skeleton ──────────────────────────────────────────────── */
+
+.insights-skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: var(--rt-space-4);
+}
+
+.insights-skeleton-card {
+  background: var(--rt-card-bg);
+  border: var(--rt-card-border);
+  border-radius: var(--rt-card-radius);
+  box-shadow: var(--rt-card-shadow);
+  display: flex;
+  flex-direction: column;
+}
+
+.insights-skeleton-card__header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--rt-space-1);
+  min-height: var(--rt-panel-header-height);
+  padding: 0 var(--rt-space-5);
+  justify-content: center;
+  border-bottom: 1px solid var(--rt-color-border);
+}
+
+.insights-skeleton-card__pills {
+  padding: var(--rt-space-4) var(--rt-space-5);
+  margin-bottom: 0;
+}
+
+.insights-skeleton-card__chart {
+  position: relative;
+  height: 200px;
+  margin: 0 var(--rt-space-5) var(--rt-space-5);
+  border-radius: var(--rt-radius-lg);
+  overflow: hidden;
+  background: color-mix(in srgb, var(--rt-color-text-tertiary) 3%, transparent);
+}
+
+.insights-skeleton-card:first-child .insights-skeleton-card__chart {
+  height: 260px;
+}
+
+.insights-skeleton-card:nth-child(3) .insights-skeleton-card__chart {
+  height: 180px;
+}
+
+/* Fake bars for chart skeletons */
+.insights-skeleton-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  height: 100%;
+  padding: 16px 12px 12px;
+}
+
+.insights-skeleton-bar {
+  flex: 1;
+  border-radius: var(--rt-radius-sm) var(--rt-radius-sm) 0 0;
+  background: color-mix(in srgb, var(--rt-color-text-tertiary) 12%, transparent);
+  position: relative;
+  overflow: hidden;
+  min-height: 6px;
+  animation: skeletonBarPulse 1.8s ease-in-out infinite;
+}
+
+.insights-skeleton-bar::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    color-mix(in srgb, var(--rt-color-text-tertiary) 6%, transparent) 50%,
+    transparent 100%
+  );
+  animation: skeletonBarShimmer 2s ease-in-out infinite;
+}
+
+@keyframes skeletonBarPulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+@keyframes skeletonBarShimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* Line chart skeleton */
+.insights-skeleton-line {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  padding: 16px;
+  animation: skeletonLinePulse 2s ease-in-out infinite;
+}
+
+.insights-skeleton-line path {
+  animation: skeletonLinePulse 2s ease-in-out infinite;
+}
+
+@keyframes skeletonLinePulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+/* ── V2: Tier badge ────────────────────────────────────────────────── */
+
+.insight-tier-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--rt-space-1);
+  padding: 2px var(--rt-space-2);
+  border-radius: var(--rt-radius-pill);
+  font-size: var(--rt-text-2xs);
+  font-weight: var(--rt-weight-bold);
+  letter-spacing: 0.02em;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+.insight-tier-badge__dot {
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* ── V2: Tier legend ───────────────────────────────────────────────── */
+
+.insight-tier-legend {
+  display: flex;
+  align-items: center;
+  gap: var(--rt-space-2);
+  padding: var(--rt-space-2) var(--rt-space-5) var(--rt-space-3);
+  flex-wrap: wrap;
+}
+
+.insight-tier-legend__label {
+  font-size: var(--rt-text-2xs);
+  font-weight: var(--rt-weight-semibold);
+  color: var(--rt-color-text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-right: var(--rt-space-1);
+}
+
+/* ── V2: Kruskal-Wallis footnote ───────────────────────────────────── */
+
+.insight-kw-footnote {
+  margin: 0;
+  font-size: var(--rt-text-xs);
+  color: var(--rt-color-text-tertiary);
+  font-style: italic;
+  padding: var(--rt-space-2) var(--rt-space-5) var(--rt-space-3);
+  border-top: 1px solid var(--rt-color-border);
+}
+
+/* ── Insights panel header & controls row adjustments ────────────────── */
+
+.rt-insights-header {
+  min-height: auto;
+  padding-top: var(--rt-space-3);
+  padding-bottom: var(--rt-space-3);
+  gap: var(--rt-space-3);
+  flex-wrap: wrap;
+  /* Allow timezone dropdown to overflow the panel card */
+  overflow: visible;
+}
+
+/* The outer dp-panel must also allow overflow so the timezone dropdown
+   is not clipped by the card's border-radius + overflow:hidden rule */
+.dp-panel:has(.rt-insights-header) {
+  overflow: visible;
+}
+
+.rt-insights-controls-row {
+  display: flex;
+  align-items: center;
+  gap: var(--rt-space-3);
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+/* ── Insights controls bar (timezone + segment in dp-panel-header) ──── */
+
+.insights-controls-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--rt-space-3);
+  flex-shrink: 0;
+}
+
+/* ── Timezone note -- shown when selected tz differs from browser tz ─── */
+
+.insights-tz-note {
+  flex: 0 0 100%;
+  font-size: var(--rt-text-xs);
+  color: var(--rt-color-text-tertiary);
+  margin-top: var(--rt-space-2);
+  display: flex;
+  align-items: center;
+  gap: var(--rt-space-2);
+}
+
+.insights-tz-note__sep {
+  opacity: 0.4;
+}
+
+/* ── Segment toggle (All / Shorts / Long) -- rt-filter-chip alignment ─ */
+
+
+.insights-segment-btn {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--rt-control-height-sm);
+  padding: 0 var(--rt-space-3);
+  border: none;
+  background: var(--rt-color-bg-elevated);
+  color: var(--rt-color-text-secondary);
+  font-family: var(--rt-font-sans);
+  font-size: var(--rt-text-sm);
+  font-weight: var(--rt-weight-semibold);
+  letter-spacing: var(--rt-tracking-ui);
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background-color var(--rt-transition-fast),
+    border-color var(--rt-transition-fast),
+    color var(--rt-transition-fast);
+  line-height: 1;
+}
+
+.insights-segment-btn:hover {
+  background: var(--rt-color-bg-subtle);
+  color: var(--rt-color-text);
+}
+
+.insights-segment-btn--active {
+  background: var(--rt-color-btn-primary);
+  color: var(--rt-color-on-primary);
+}
+
+.insights-segment-btn:focus-visible {
+  outline: 2px solid var(--rt-color-accent);
+  outline-offset: -2px;
+  z-index: 1;
+}
+
+/* ── Timezone selector ─────────────────────────────────────────────── */
+
+.insights-tz-selector {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.insights-tz-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--rt-space-2);
+  min-height: var(--rt-control-height-sm);
+  padding: 0 var(--rt-space-2);
+  font-family: var(--rt-font-sans);
+  font-size: var(--rt-text-sm);
+  font-weight: var(--rt-weight-semibold);
+  color: var(--rt-color-text-secondary);
+  background: var(--rt-color-bg-elevated);
+  border: 1px solid var(--rt-color-border-strong);
+  border-radius: var(--rt-radius-md);
+  cursor: pointer;
+  letter-spacing: var(--rt-tracking-ui);
+  transition:
+    background-color var(--rt-transition-fast),
+    border-color var(--rt-transition-fast),
+    color var(--rt-transition-fast);
+  line-height: 1;
+}
+
+.insights-tz-btn:hover {
+  background: var(--rt-color-bg-subtle);
+  border-color: var(--rt-color-border-strong);
+  color: var(--rt-color-text);
+}
+
+.insights-tz-btn:focus-visible {
+  outline: 2px solid var(--rt-color-accent);
+  outline-offset: 2px;
+}
+
+.insights-tz-btn svg {
+  flex-shrink: 0;
+  opacity: 0.65;
+}
+
+/* ── Timezone dropdown panel (rt-dropdown-panel alignment) ──────────── */
+
+.insights-tz-dropdown {
+  position: absolute;
+  top: calc(100% + var(--rt-dropdown-offset-y));
+  right: 0;
+  z-index: var(--rt-dropdown-z);
+  background: var(--rt-popover-bg);
+  border: var(--rt-popover-border);
+  border-radius: var(--rt-popover-radius);
+  box-shadow: var(--rt-popover-shadow);
+  min-width: 200px;
+  display: flex;
+  flex-direction: column;
+}
+
+.insights-tz-dropdown--searchable {
+  width: 280px;
+  max-height: 360px;
+}
+
+.insights-tz-search-wrap {
+  padding: var(--rt-space-2) var(--rt-space-2) var(--rt-space-1);
+  flex-shrink: 0;
+}
+
+.insights-tz-search {
+  width: 100%;
+  padding: var(--rt-space-1) var(--rt-space-2);
+  font-family: var(--rt-font-sans);
+  font-size: var(--rt-text-sm);
+  font-weight: var(--rt-weight-medium);
+  border: 1px solid var(--rt-color-border-strong);
+  border-radius: var(--rt-radius-md);
+  background: var(--rt-color-bg-elevated);
+  color: var(--rt-color-text);
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color var(--rt-transition-fast), box-shadow var(--rt-transition-fast);
+}
+
+.insights-tz-search:focus {
+  border-color: var(--rt-color-accent);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--rt-color-accent) 20%, transparent);
+}
+
+.insights-tz-options {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--rt-space-1) 0;
+  max-height: 280px;
+}
+
+.insights-tz-group-label {
+  font-size: 0.62rem;
+  font-weight: var(--rt-weight-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--rt-color-text-tertiary);
+  padding: var(--rt-space-2) var(--rt-space-3) var(--rt-space-1);
+  position: sticky;
+  top: 0;
+  background: var(--rt-popover-bg);
+}
+
+.insights-tz-option {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  width: 100%;
+  padding: var(--rt-space-1) var(--rt-space-3);
+  font-family: var(--rt-font-sans);
+  font-size: var(--rt-text-sm);
+  font-weight: var(--rt-weight-medium);
+  text-align: left;
+  border: none;
+  background: transparent;
+  color: var(--rt-color-text);
+  cursor: pointer;
+  transition: background-color var(--rt-transition-fast);
+  line-height: var(--rt-leading-tight);
+}
+
+.insights-tz-option:hover {
+  background: var(--rt-popover-item-hover);
+}
+
+.insights-tz-option--selected {
+  background: var(--rt-popover-item-selected-bg);
+  color: var(--rt-color-accent);
+  font-weight: var(--rt-weight-semibold);
+}
+
+.insights-tz-option-label {
+  font-size: var(--rt-text-sm);
+  font-weight: var(--rt-weight-medium);
+}
+
+.insights-tz-option-path {
+  font-size: var(--rt-text-2xs);
+  color: var(--rt-color-text-tertiary);
+  font-weight: var(--rt-weight-medium);
+}
+
+.insights-tz-option--selected .insights-tz-option-path {
+  color: color-mix(in srgb, var(--rt-color-accent) 60%, transparent);
+}
+
+.insights-tz-option:focus-visible {
+  outline: 2px solid var(--rt-color-accent);
+  outline-offset: -2px;
+}
+
+.insights-tz-no-results {
+  padding: var(--rt-space-4) var(--rt-space-3);
+  text-align: center;
+  font-size: var(--rt-text-sm);
+  color: var(--rt-color-text-tertiary);
+}
+
+/* ── Responsive ────────────────────────────────────────────────────── */
+
+@media (max-width: 768px) {
+  .insights-skeleton-card:first-child .insights-skeleton-card__chart {
+    height: 200px;
+  }
+
+  .insights-skeleton-card__chart {
+    height: 160px;
+  }
+
+  .insights-skeleton-bars {
+    padding: 12px 8px 8px;
+    gap: 3px;
+  }
+
+  .insights-section__header {
+    padding: var(--rt-space-3) var(--rt-space-4);
+    min-height: auto;
+  }
+
+  .insight-stat-row {
+    padding: var(--rt-space-3) var(--rt-space-4);
+    gap: var(--rt-space-4);
+  }
+
+  .insight-chart-wrap--area {
+    min-height: 240px;
+  }
+
+  .insight-chart-wrap--area > .rt-chart {
+    min-height: 240px;
+  }
+
+  .insight-chart-wrap--bar {
+    min-height: 240px;
+  }
+
+  .insight-chart-wrap--bar > .rt-chart {
+    min-height: 240px;
+  }
+
+  .insights-section .insight-chart-wrap {
+    padding: 0 var(--rt-space-4) var(--rt-space-4);
+  }
+
+  .insight-stat__value {
+    font-size: var(--rt-text-lg);
+  }
+
+  .insight-pill--recommendation {
+    font-size: var(--rt-text-2xs);
+    padding: var(--rt-space-1) var(--rt-space-2);
+  }
+
+  .rt-insights-controls-row {
+    width: 100%;
+    justify-content: flex-start;
+    gap: var(--rt-space-2);
+  }
+
+  .insights-tz-dropdown {
+    right: auto;
+    left: 0;
+    max-width: calc(100vw - var(--rt-space-8));
+  }
+}
+
+@media (max-width: 480px) {
+  .insights-controls-bar {
+    flex-wrap: wrap;
+    gap: var(--rt-space-2);
+  }
+
+  .insights-tz-dropdown {
+    right: auto;
+    left: 0;
+  }
+
+  .insights-section__header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

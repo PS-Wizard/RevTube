@@ -1,0 +1,51 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "packageManager": "pnpm@10.33.2",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node --watch index.js",
+    "db:migrate": "node db/migrate.js",
+    "db:drizzle-generate": "drizzle-kit generate",
+    "db:drizzle-push": "drizzle-kit push",
+    "db:drizzle-introspect": "drizzle-kit introspect",
+    "test": "vitest run"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@bull-board/api": "^8.1.2",
+    "@bull-board/express": "^8.1.2",
+    "axios": "^1.13.2",
+    "bullmq": "^5.46.3",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "drizzle-orm": "^0.45.2",
+    "express": "^5.2.1",
+    "express-rate-limit": "^8.4.1",
+    "firebase-admin": "^13.7.0",
+    "helmet": "^8.2.0",
+    "ioredis": "^5.6.1",
+    "node-cron": "^4.2.1",
+    "nodemailer": "^8.0.2",
+    "openai": "^6.47.0",
+    "pg": "^8.16.3",
+    "redis": "^4.7.1"
+  },
+  "devDependencies": {
+    "drizzle-kit": "^0.31.10",
+    "vitest": "^4.1.10"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "esbuild@0.18.20",
+      "esbuild@0.25.12",
+      "esbuild@0.28.1"
+    ]
+  }
+}

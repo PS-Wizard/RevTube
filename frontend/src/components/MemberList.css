@@ -1,0 +1,262 @@
+/* MemberList.css -- Modern redesign using app CSS variables */
+
+.member-list {
+  display: flex;
+  flex-direction: column;
+}
+
+
+/* ── Row ──────────────────────────────────────────────────────── */
+.member-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.875rem 1.5rem;
+  background: var(--bg-surface);
+  border-bottom: 1px solid var(--border-color);
+  transition: background 0.12s ease;
+}
+
+.member-item:last-child {
+  border-bottom: none;
+}
+
+.member-item:hover {
+  background: var(--bg-primary);
+}
+
+/* ── Avatar ───────────────────────────────────────────────────── */
+.member-item__avatar {
+  flex-shrink: 0;
+}
+
+.member-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-color-hover) 100%);
+  color: var(--rt-color-on-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.8125rem;
+  flex-shrink: 0;
+  letter-spacing: 0.03em;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+
+/* ── Info block ───────────────────────────────────────────────── */
+.member-item__info {
+  flex: 1;
+  min-width: 0;
+}
+
+.member-item__name {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.member-item__you {
+  font-size: 0.7rem;
+  color: var(--text-tertiary);
+  font-weight: 400;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  padding: 0.05rem 0.35rem;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.member-item__meta {
+  font-size: 0.8rem;
+  color: var(--text-tertiary);
+  margin-top: 0.1rem;
+}
+
+/* ── Role area ────────────────────────────────────────────────── */
+.member-item__role {
+  flex-shrink: 0;
+}
+
+.member-role-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem 0.6rem;
+  border-radius: 20px;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.member-role-badge--owner {
+  background: rgba(251, 191, 36, 0.15);
+  color: rgb(161, 87, 0);
+  border: 1px solid rgba(251, 191, 36, 0.35);
+}
+
+.member-role-badge--admin {
+  background: rgba(168, 85, 247, 0.12);
+  color: rgb(109, 40, 217);
+  border: 1px solid rgba(168, 85, 247, 0.3);
+}
+
+.member-role-badge--write {
+  background: rgba(52, 211, 153, 0.12);
+  color: rgb(4, 120, 87);
+  border: 1px solid rgba(52, 211, 153, 0.3);
+}
+
+.member-role-badge--read {
+  background: rgba(96, 165, 250, 0.12);
+  color: var(--primary-color-hover);
+  border: 1px solid rgba(96, 165, 250, 0.3);
+}
+
+/* Dark mode pills */
+[data-theme="dark"] .member-role-badge--owner {
+  color: var(--rt-color-warning);
+  background: color-mix(in srgb, var(--rt-color-warning) 20%, transparent);
+}
+[data-theme="dark"] .member-role-badge--admin {
+  color: var(--rt-color-info);
+  background: color-mix(in srgb, var(--rt-color-info) 20%, transparent);
+}
+[data-theme="dark"] .member-role-badge--write {
+  color: var(--rt-color-success);
+  background: color-mix(in srgb, var(--rt-color-success) 20%, transparent);
+}
+[data-theme="dark"] .member-role-badge--read {
+  color: var(--rt-color-accent);
+  background: color-mix(in srgb, var(--rt-color-accent) 20%, transparent);
+}
+
+/* ── Role change select ───────────────────────────────────────── */
+.member-role-select {
+  min-height: var(--rt-control-height-sm);
+  padding: 0 0.6rem;
+  border: 1px solid var(--rt-color-border-strong);
+  border-radius: var(--rt-radius-md);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+  color: var(--rt-color-text);
+  background: var(--rt-color-bg-elevated);
+  cursor: pointer;
+  min-width: 90px;
+  transition: all 0.15s ease;
+  font-family: var(--rt-font-sans);
+  appearance: auto;
+}
+
+.member-role-select:focus {
+  outline: none;
+  border-color: var(--rt-color-accent);
+  box-shadow: var(--rt-focus-ring);
+}
+
+/* ── Kebab Menu Actions ───────────────────────────────────────── */
+.member-item__actions {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.member-kebab-container {
+  position: relative;
+}
+
+.member-kebab-btn {
+  background: none;
+  border: 1px solid transparent;
+  color: var(--rt-color-text-tertiary);
+  cursor: pointer;
+  width: 28px;
+  height: 28px;
+  border-radius: var(--rt-radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+}
+
+.member-item:hover .member-kebab-btn {
+  color: var(--rt-color-text-secondary);
+}
+
+.member-kebab-btn:hover,
+.member-kebab-btn--active {
+  background: var(--rt-color-bg-muted);
+  border-color: var(--rt-color-border-strong);
+  color: var(--rt-color-text) !important;
+}
+
+[data-theme="dark"] .member-kebab-btn:hover,
+[data-theme="dark"] .member-kebab-btn--active {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.member-kebab-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: var(--rt-dropdown-offset-y);
+  background: var(--rt-popover-bg);
+  border: var(--rt-popover-border);
+  border-radius: var(--rt-popover-radius);
+  box-shadow: var(--rt-popover-shadow);
+  min-width: 200px;
+  z-index: var(--rt-dropdown-z);
+  padding: 0.35rem;
+  animation: menuIn 0.1s ease-out;
+}
+
+@keyframes menuIn {
+  from { opacity: 0; transform: translateY(-4px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+
+.member-menu-item:hover {
+  background: var(--rt-popover-item-hover);
+}
+
+[data-theme="dark"] .member-menu-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.member-menu-item svg {
+  color: var(--rt-color-text-secondary);
+}
+
+
+.member-menu-item--danger:hover {
+  background: rgba(239, 68, 68, 0.08) !important;
+}
+
+.member-menu-item--danger svg {
+  color: currentColor;
+}
+
+/* ── Responsive ───────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .member-item {
+    flex-wrap: wrap;
+    padding: 1rem 1.25rem;
+    gap: 0.75rem;
+  }
+
+  .member-item__name {
+    flex-wrap: wrap;
+  }
+}

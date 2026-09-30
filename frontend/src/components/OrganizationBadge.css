@@ -1,0 +1,74 @@
+.organization-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--rt-space-1);
+  padding: 0.3125rem var(--rt-space-3);
+  border-radius: var(--rt-radius-md);
+  font-size: var(--rt-text-sm);
+  font-weight: var(--rt-weight-medium);
+  border: 1px solid;
+  transition: background-color var(--rt-transition-fast), border-color var(--rt-transition-fast),
+    color var(--rt-transition-fast);
+}
+
+.organization-badge--personal {
+  background: var(--rt-color-accent-muted);
+  color: var(--rt-color-accent-hover);
+  border-color: var(--rt-color-accent);
+}
+
+.organization-badge--organization {
+  background: var(--rt-color-success-surface);
+  color: var(--rt-color-success);
+  border-color: var(--rt-color-success);
+}
+
+.organization-badge--loading {
+  background: var(--rt-color-bg-subtle);
+  border-color: var(--rt-color-border);
+  padding: 0.3125rem var(--rt-space-3);
+}
+
+.organization-badge__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.organization-badge__text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 150px;
+}
+
+.organization-badge__skeleton {
+  width: 80px;
+  height: 1rem;
+  background: linear-gradient(
+    90deg,
+    var(--rt-color-bg-muted) 25%,
+    var(--rt-color-border) 50%,
+    var(--rt-color-bg-muted) 75%
+  );
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+  border-radius: var(--rt-radius-sm);
+}
+
+@keyframes loading {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Compact variant */
+
+.organization-badge--compact .organization-badge__icon svg {
+  width: 12px;
+  height: 12px;
+}
+
+.organization-badge--compact .organization-badge__text {
+  max-width: 100px;
+}

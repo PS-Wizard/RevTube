@@ -1,0 +1,83 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1721000000000,
+      "tag": "0000_initial",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1721400000000,
+      "tag": "0004_chat_conversations",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1721500000000,
+      "tag": "0005_chat_org_id",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1721600000000,
+      "tag": "0006_chat_messages_user",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1721700000000,
+      "tag": "0007_thumbnail_audits",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1721800000000,
+      "tag": "0008_playlist_audits",
+      "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1721900000000,
+      "tag": "0009_audits",
+      "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1722000000000,
+      "tag": "0010_video_audits",
+      "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "7",
+      "when": 1722100000000,
+      "tag": "0011_centralized_audit",
+      "breakpoints": true
+    },
+    {
+      "idx": 12,
+      "version": "7",
+      "when": 1722200000000,
+      "tag": "0012_extended_analytics_metrics",
+      "breakpoints": true
+    },
+    {
+      "idx": 13,
+      "version": "7",
+      "when": 1722300000000,
+      "tag": "0013_channel_goals",
+      "breakpoints": true
+    }
+  ]
+}

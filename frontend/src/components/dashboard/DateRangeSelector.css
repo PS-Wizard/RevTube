@@ -1,0 +1,444 @@
+/* Self-contained trigger button (no longer depends on page-scoped classes).
+   Rendered via the shared `Button` (variant="outline", size="sm") plus this
+   layout class so a long custom-range label truncates instead of overflowing. */
+.date-range-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--rt-space-2);
+  max-width: 100%;
+  min-width: 0;
+}
+
+.date-range-trigger-icon {
+  opacity: 0.7;
+  flex-shrink: 0;
+}
+
+.date-range-trigger-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+}
+
+.date-range-trigger-chevron {
+  flex-shrink: 0;
+  margin-left: 2px;
+  opacity: 0.5;
+}
+.date-range-popover-paper {
+  background-color: var(--rt-popover-bg) !important;
+  color: var(--rt-color-text) !important;
+  border: var(--rt-popover-border) !important;
+  border-radius: var(--rt-popover-radius) !important;
+  box-shadow: var(--rt-popover-shadow) !important;
+  overflow: auto !important;
+  margin-top: var(--rt-dropdown-offset-y) !important;
+  max-height: calc(100vh - 96px);
+  padding: 8px !important;
+  box-sizing: border-box !important;
+}
+
+.date-range-popover-paper a {
+  color: inherit;
+}
+
+.date-range-popover-paper :focus-visible {
+  outline: 2px solid rgba(17, 24, 39, 0.22);
+  outline-offset: 1px;
+}
+
+.date-range-picker-container {
+  display: flex;
+  flex-direction: column;
+  font-family: var(--rt-font-sans);
+  min-width: 0;
+  width: min(520px, calc(100vw - 32px));
+  max-width: 520px;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+.date-range-dialog-mobile {
+  max-width: min(390px, calc(100vw - 16px)) !important;
+  width: min(390px, calc(100vw - 16px)) !important;
+  max-height: calc(100vh - 24px) !important;
+  margin: 0 auto !important;
+  border-radius: var(--rt-radius-lg) !important;
+  background: var(--rt-color-bg-elevated) !important;
+  border: 1px solid var(--rt-color-border) !important;
+  box-shadow: var(--rt-shadow-lg) !important;
+  overflow: hidden !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.date-range-dialog-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--rt-space-3) var(--rt-space-4);
+  border-bottom: 1px solid var(--rt-color-border);
+  background: var(--rt-color-bg-subtle);
+  flex-shrink: 0;
+}
+
+.date-range-dialog-title {
+  font-size: var(--rt-text-sm);
+  font-weight: var(--rt-weight-bold);
+  color: var(--rt-color-text);
+}
+
+@media (max-width: 768px) {
+  .date-range-popover-paper {
+    max-height: calc(100vh - 72px);
+    max-width: calc(100vw - 16px) !important;
+    margin-top: 4px !important;
+  }
+
+  .date-range-picker-container {
+    width: 100%;
+    max-width: 100%;
+    padding: var(--rt-space-2);
+  }
+}
+
+.date-range-top-row {
+  display: flex;
+  min-width: 0;
+}
+
+
+.shortcut-btn {
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--rt-color-text);
+  text-align: left;
+  padding: 0.35rem 0.6rem !important;
+  font-size: var(--rt-text-sm);
+  font-weight: var(--rt-weight-medium);
+  cursor: pointer;
+  border-radius: 8px;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.shortcut-btn:hover {
+  background-color: var(--rt-popover-item-hover);
+  color: var(--rt-color-text);
+}
+
+.shortcut-btn.active {
+  background: var(--rt-color-bg-subtle) !important;
+  border-color: var(--rt-color-border-strong) !important;
+  color: var(--rt-color-text) !important;
+  font-weight: var(--rt-weight-semibold) !important;
+}
+
+/* Popover shortcuts use shared `Button` -- strip default `.rt-btn` chip so they match this list */
+.date-range-shortcuts .rt-btn.shortcut-btn {
+  min-height: 32px;
+  height: 32px;
+  padding: 0.35rem 0.6rem;
+  font-size: var(--rt-text-sm);
+  font-weight: var(--rt-weight-medium);
+  color: var(--rt-color-text);
+  background: transparent !important;
+  border: 1px solid transparent !important;
+  border-radius: 8px;
+  box-shadow: none;
+  width: 100%;
+  justify-content: flex-start;
+}
+
+.date-range-shortcuts .rt-btn.shortcut-btn:hover:not(:disabled) {
+  background: var(--rt-color-bg-muted, var(--rt-color-bg-muted)) !important;
+  color: var(--rt-color-text, var(--rt-color-text));
+}
+
+.date-range-calendar {
+  padding: 0.7rem 0.75rem 0.5rem;
+}
+
+.date-range-main {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.date-range-shortcuts {
+  width: 148px;
+  border-right: 1px solid var(--rt-color-border);
+  padding: 0.6rem 0.45rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  background: var(--rt-color-bg-elevated);
+}
+
+.date-range-footer {
+  border-top: 1px solid var(--rt-color-border);
+  padding: 0.7rem 0.75rem;
+  display: flex;
+  align-items: stretch;
+  background: var(--rt-color-bg-subtle);
+  width: 100%;
+}
+
+.date-range-inputs {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto;
+  gap: 0.5rem;
+  align-items: stretch;
+  width: 100%;
+}
+
+.date-range-input {
+  border: 1px solid var(--rt-color-border-strong);
+  border-radius: 8px;
+  background: var(--rt-color-bg-elevated);
+  padding: 0.25rem 0.45rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  min-width: 0;
+  min-height: 48px;
+  justify-content: center;
+}
+
+.date-range-input-label {
+  font-size: var(--rt-text-xs);
+  color: var(--rt-color-text-secondary);
+  font-weight: 600;
+}
+
+.date-range-input-value {
+  font-size: var(--rt-text-sm);
+  color: var(--rt-color-text);
+  font-weight: 500;
+  border: 0;
+  background: transparent;
+  outline: none;
+  width: 100%;
+  padding: 0;
+  line-height: 1.25;
+}
+
+.date-range-input-value::placeholder {
+  color: var(--rt-color-text-disabled);
+}
+
+.date-range-input:focus-within {
+  border-color: var(--rt-color-text-tertiary);
+  box-shadow: 0 0 0 2px rgba(17, 24, 39, 0.12);
+}
+
+.date-range-apply {
+  min-width: 72px;
+  align-self: stretch;
+}
+
+.date-range-footer .rt-btn.date-range-apply {
+  min-height: 48px;
+  padding: 0.35rem 0.9rem;
+  border-radius: var(--rt-radius-md);
+  background: var(--rt-color-text) !important;
+  color: var(--rt-color-bg-elevated) !important;
+  border: 1px solid var(--rt-color-text) !important;
+}
+
+.date-range-footer .rt-btn.date-range-apply:hover:not(:disabled) {
+  background: var(--rt-color-text) !important;
+}
+
+.date-range-footer .rt-btn.date-range-apply:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* DayPicker Premium Overrides */
+/* DayPicker v9 uses .rdp-root token scope */
+.rdp,
+.rdp-root {
+  --rdp-cell-size: 40px;
+  --rdp-accent-color: var(--rt-color-btn-primary);
+  --rdp-range_middle-background-color: var(--rt-color-bg-subtle);
+  --rdp-range_start-background: var(--rt-color-btn-primary);
+  --rdp-range_end-background: var(--rt-color-btn-primary);
+  --rdp-background-color: var(--rt-color-bg-subtle);
+  margin: 0;
+  color: var(--rt-color-text);
+  width: 100%;
+}
+
+
+.rdp-month,
+.rdp-month_grid {
+  width: 100%;
+}
+
+
+/* Hard override DayPicker defaults so no blue accents leak through */
+
+
+.rdp-day_today .rdp-day_button {
+  color: var(--rt-color-text) !important;
+}
+
+/* Single source of truth: selected/range endpoints (v9 + legacy class names) */
+.rdp-selected .rdp-day_button,
+.rdp-range_start .rdp-day_button,
+.rdp-range_end .rdp-day_button,
+.rdp-day_selected .rdp-day_button,
+.rdp-day_range_start .rdp-day_button,
+.rdp-day_range_end .rdp-day_button {
+  background-color: var(--rt-color-btn-primary) !important;
+  color: var(--rt-color-on-primary) !important;
+  font-weight: 600 !important;
+}
+
+/* If today is selected, selected contrast must win */
+.rdp-day_today.rdp-selected .rdp-day_button,
+.rdp-day_today.rdp-range_start .rdp-day_button,
+.rdp-day_today.rdp-range_end .rdp-day_button,
+.rdp-day_today.rdp-day_selected .rdp-day_button,
+.rdp-day_today.rdp-day_range_start .rdp-day_button,
+.rdp-day_today.rdp-day_range_end .rdp-day_button {
+  color: var(--rt-color-on-primary) !important;
+}
+
+.rdp-button:hover:not([disabled]):not(.rdp-day_selected) {
+  background-color: var(--rt-color-bg-muted) !important;
+}
+
+
+.rdp-button_previous,
+.rdp-button_next {
+    color: var(--rt-color-text-tertiary);
+    transition: color 0.15s, background-color 0.15s;
+    border-radius: 8px;
+}
+
+
+
+.rdp-button_previous:hover,
+.rdp-button_next:hover {
+    color: var(--rt-color-text);
+    background-color: var(--rt-color-bg-muted);
+}
+
+/* Range middle must keep readable text (not white-on-light) */
+.rdp-day_range_middle .rdp-day_button {
+  color: var(--rt-color-text) !important;
+  background: var(--rt-color-bg-subtle) !important;
+  font-weight: var(--rt-weight-medium) !important;
+}
+
+/* DayPicker marks middle range days as selected too; force subtle middle fill. */
+.rdp-range_middle.rdp-selected .rdp-day_button,
+.rdp-day_range_middle.rdp-day_selected .rdp-day_button,
+.rdp-range_middle .rdp-day_button[aria-selected="true"],
+.rdp-day_range_middle .rdp-day_button[aria-selected="true"] {
+  color: var(--rt-color-text) !important;
+  background: var(--rt-color-bg-subtle) !important;
+  font-weight: var(--rt-weight-medium) !important;
+}
+
+
+
+/* Final mobile overrides (placed at end so base rules cannot win in cascade). */
+@media (max-width: 768px) {
+  .date-range-top-row {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .date-range-main {
+    order: 1;
+    width: 100%;
+  }
+
+  .date-range-shortcuts {
+    order: 2;
+    width: 100%;
+    border-right: 0;
+    border-top: 1px solid var(--rt-color-border);
+    padding: var(--rt-space-2);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--rt-space-1);
+    box-sizing: border-box;
+    background: var(--rt-color-bg-subtle);
+  }
+
+  .date-range-shortcuts .rt-btn.shortcut-btn {
+    width: 100%;
+    min-width: 0;
+    justify-content: center;
+    padding: 0.35rem 0.25rem;
+    font-size: var(--rt-text-xs);
+  }
+
+  .date-range-calendar {
+    padding: var(--rt-space-2) var(--rt-space-1);
+    display: flex;
+    justify-content: center;
+    overflow-x: auto;
+  }
+
+  .rdp,
+  .rdp-root,
+  .rdp-months,
+  .rdp-month,
+  .rdp-month_grid {
+    width: 100%;
+    max-width: 320px;
+  }
+
+  .rdp-months {
+    display: block;
+    margin: 0 auto;
+  }
+
+  .rdp-month {
+    margin: 0 auto;
+  }
+
+  .rdp-month_grid {
+    table-layout: fixed;
+  }
+
+  .rdp {
+    --rdp-cell-size: clamp(28px, 8.5vw, 36px);
+  }
+
+  .date-range-inputs {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--rt-space-2);
+  }
+
+  .date-range-apply {
+    grid-column: span 2;
+    width: 100%;
+  }
+
+  .date-range-footer .rt-btn.date-range-apply {
+    min-height: 40px;
+    height: 40px;
+  }
+
+  .date-range-input {
+    min-height: 42px;
+  }
+}
+
+@media (max-width: 380px) {
+  .date-range-shortcuts {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .rdp {
+    --rdp-cell-size: clamp(25px, 8vw, 30px);
+  }
+}
